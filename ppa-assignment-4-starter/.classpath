@@ -6,17 +6,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/k1921959/Documents/PPA/PPA-Assignment-4/ppa-assignment-4-starter/+libs/opencsv-4.1.jar">
+	<classpathentry kind="lib" path="/home/k1921959/git/PPA-Assignment-4/ppa-assignment-4-starter/+libs/opencsv-4.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/k1921959/Documents/PPA/PPA-Assignment-4/ppa-assignment-4-starter/+libs/commons-text-1.2.jar">
+	<classpathentry kind="lib" path="/home/k1921959/git/PPA-Assignment-4/ppa-assignment-4-starter/+libs/commons-text-1.2.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/k1921959/Documents/PPA/PPA-Assignment-4/ppa-assignment-4-starter/+libs/commons-lang3-3.7.jar">
+	<classpathentry kind="lib" path="/home/k1921959/git/PPA-Assignment-4/ppa-assignment-4-starter/+libs/commons-lang3-3.7.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
