@@ -6,9 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 public class View extends Application {
@@ -68,6 +70,13 @@ public class View extends Application {
 		
 		// Put all components in this pane.
 		
+		GridPane gridPane = new GridPane();
+		
+		BoroughButton boroughButton = new BoroughButton("ENFI", 50, 60);
+		
+		gridPane.add(boroughButton, 0, 0);
+		
+		pane.getChildren().add(gridPane);
 		return pane;
 	}
 
