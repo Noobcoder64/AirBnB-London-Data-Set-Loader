@@ -31,6 +31,10 @@ public class View extends Application {
 
 		root.setTop(priceRangeBox);
 
+		// Main content Pane.
+		Pane contentPane = createContentPane();
+		root.setCenter(contentPane);
+		
 		HBox navigationBox = new HBox();
 
 		Button backButton = new Button("<");
@@ -49,6 +53,16 @@ public class View extends Application {
 		primaryStage.setTitle("London Property Marketlace");
 
 		primaryStage.show();
+	}
+
+	// Create the pane and return the Pane.
+	// Do all work here.
+	private Pane createContentPane() {
+		Pane pane = new Pane();
+		
+		// Put all components in this pane.
+		
+		return pane;
 	}
 
 	public static void main(String[] args) {
