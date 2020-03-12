@@ -17,10 +17,11 @@ public class View extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		BorderPane root = new BorderPane();
-
+		
 		HBox priceRangeBox = new HBox();
+		priceRangeBox.setId("price-range-box");  // <-- HOW TO ADD AN ID
 		priceRangeBox.setAlignment(Pos.CENTER_RIGHT);
-
+		
 		Label fromLabel = new Label("From:");
 		ChoiceBox<Double> fromChoice = new ChoiceBox<>();
 
@@ -36,18 +37,23 @@ public class View extends Application {
 		root.setCenter(contentPane);
 		
 		HBox navigationBox = new HBox();
-
+		navigationBox.setId("navigation-box");
+		
 		Button backButton = new Button("<");
 		Pane space = new Pane();
 		Button forwardButton = new Button(">");
 
+		backButton.getStyleClass().add("navigation-button");
+		forwardButton.getStyleClass().add("navigation-button");
+		
 		HBox.setHgrow(space, Priority.ALWAYS);
 		navigationBox.getChildren().addAll(backButton, space, forwardButton);
 
 		root.setBottom(navigationBox);
 
 		Scene scene = new Scene(root, 600, 400);
-
+		scene.getStylesheets().add("css/style.css");
+		
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("London Property Marketlace");
