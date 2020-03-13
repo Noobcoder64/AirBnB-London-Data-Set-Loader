@@ -5,17 +5,31 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.opencsv.CSVReader;
 import java.net.URISyntaxException;
 
 public class AirbnbDataLoader {
  
+	private List<AirbnbListing> properties;
+	
+	private Map<String,Borough> boroughs;
+	
+	public AirbnbDataLoader() {
+		this.properties = new ArrayList<>();
+		this.boroughs = new HashMap<>();
+		
+		load();
+	}
+	
     /** 
      * Return an ArrayList containing the rows in the AirBnB London data set csv file.
      */
-    public ArrayList<AirbnbListing> load() {
+    public void load() {
         System.out.print("Begin loading Airbnb london dataset...");
-        ArrayList<AirbnbListing> listings = new ArrayList<AirbnbListing>();
         try{
             URL url = getClass().getResource("airbnb-london.csv");
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
@@ -26,8 +40,8 @@ public class AirbnbDataLoader {
                 String id = line[0];
                 String name = line[1];
                 String host_id = line[2];
-                String host_name = line[3];
-                String neighbourhood = line[4];
+                String host_name = line[3];   
+                String neighbourhood = line[4];      
                 double latitude = convertDouble(line[5]);
                 double longitude = convertDouble(line[6]);
                 String room_type = line[7];
@@ -39,19 +53,25 @@ public class AirbnbDataLoader {
                 int calculatedHostListingsCount = convertInt(line[13]);
                 int availability365 = convertInt(line[14]);
 
-                AirbnbListing listing = new AirbnbListing(id, name, host_id,
+                AirbnbListing property = new AirbnbListing(id, name, host_id,
                         host_name, neighbourhood, latitude, longitude, room_type,
                         price, minimumNights, numberOfReviews, lastReview,
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
-                listings.add(listing);
+                properties.add(property);
+                
+                if (!boroughs.containsKey(neighbourhood)) {
+                	boroughs.put(neighbourhood, new Borough(neighbourhood));
+                }
+                
+                boroughs.get(neighbourhood).addProperty(property);;
             }
+            
         } catch(IOException | URISyntaxException e){
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }
-        System.out.println("Success! Number of loaded records: " + listings.size());
-        return listings;
+        System.out.println("Success! Number of loaded records: " + properties.size());
     }
 
     /**
@@ -80,4 +100,12 @@ public class AirbnbDataLoader {
         return -1;
     }
 
+    public List<AirbnbListing> getProperties() {
+		return properties;
+	}
+    
+    public Map<String, Borough> getBoroughs() {
+		return boroughs;
+	}
+    
 }

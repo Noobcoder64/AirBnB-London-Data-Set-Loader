@@ -1,4 +1,7 @@
 
+import java.util.List;
+import java.util.Map;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,14 +13,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 public class View extends Application {
 
+	private AirbnbDataLoader airbnbDataLoader;
+
+	public View() {
+		airbnbDataLoader = new AirbnbDataLoader();
+	}
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+		
 		BorderPane root = new BorderPane();
 		
 		HBox priceRangeBox = new HBox();
@@ -72,9 +80,13 @@ public class View extends Application {
 		
 		GridPane gridPane = new GridPane();
 		
-		BoroughButton boroughButton = new BoroughButton("ENFI", 50, 60);
-		
-		gridPane.add(boroughButton, 0, 0);
+		Map<String,Borough> boroughs = airbnbDataLoader.getBoroughs();
+	
+		int i = 0;
+		for (Borough borough : boroughs.values()) {
+			gridPane.add(new BoroughButton(borough, 50, 60), i, 0);
+			i++;
+		}
 		
 		pane.getChildren().add(gridPane);
 		return pane;

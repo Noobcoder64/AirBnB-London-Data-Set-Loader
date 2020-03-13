@@ -25,9 +25,9 @@ public class BoroughButton extends StackPane {
 	
 	private Button button;
 	
-	public BoroughButton(String name, double minWidth, double minHeight) {
+	public BoroughButton(Borough borough, double minWidth, double minHeight) {
 		super();
-		button = new Button(name);
+		button = new Button(borough.getName());
 		getChildren().add(button);
 		
 		button.setMinSize(minWidth, minHeight);
