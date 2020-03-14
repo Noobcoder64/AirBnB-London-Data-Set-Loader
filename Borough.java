@@ -16,6 +16,10 @@ public class Borough {
 		return name;
 	}
 	
+	public List<AirbnbListing> getProperties() {
+		return properties;
+	}
+	
 	public void addProperty(AirbnbListing property) {
 		this.properties.add(property);
 	}

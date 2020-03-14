@@ -9,10 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 public class View extends Application {
@@ -61,10 +63,10 @@ public class View extends Application {
 
 		root.setBottom(navigationBox);
 
-		Scene scene = new Scene(root, 600, 400);
+		Scene scene = new Scene(root);
 		scene.getStylesheets().add("css/style.css");
 		
-		primaryStage.setResizable(false);
+		//primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("London Property Marketlace");
 
@@ -79,13 +81,25 @@ public class View extends Application {
 		// Put all components in this pane.
 		
 		GridPane gridPane = new GridPane();
+		gridPane.setVgap(-20);
+		//gridPane.setGridLinesVisible(true);
+		gridPane.setStyle("-fx-background-color: orange");
+		
+		for (int i = 0; i < 7 * 2; i++) {
+			ColumnConstraints columnConstraints = new ColumnConstraints(30);
+			gridPane.getColumnConstraints().add(columnConstraints);
+		}
+		
+		RowConstraints rowConstraints = new RowConstraints(70 / 3);
+		gridPane.getRowConstraints().add(rowConstraints);		
 		
 		Map<String,Borough> boroughs = airbnbDataLoader.getBoroughs();
 	
-		int i = 0;
-		for (Borough borough : boroughs.values()) {
-			gridPane.add(new BoroughButton(borough, 50, 60), i, 0);
-			i++;
+		for (Boroughs borough : Boroughs.values()) {
+			// Exception
+			int offset = 0;
+			if (borough.getRow() % 2 == 0) offset++;
+			gridPane.add(new BoroughPane(boroughs.get(borough.getName()), borough.toString(), 50, 60), borough.getColumn() * 2 + offset, borough.getRow() * 3, 2, 3);
 		}
 		
 		pane.getChildren().add(gridPane);
