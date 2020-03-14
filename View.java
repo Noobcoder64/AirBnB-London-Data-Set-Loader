@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View extends Application {
@@ -84,9 +85,7 @@ public class View extends Application {
 	// Do all work here.
 	private Pane createPanel1() {
 		Pane pane = new Pane();
-		
-		// Put all components in this pane.
-		
+
 		GridPane gridPane = new GridPane();
 		gridPane.setVgap(-20);
 		//gridPane.setGridLinesVisible(true);
@@ -116,6 +115,26 @@ public class View extends Application {
 	private Pane createPanel2() {
 		Pane pane = new Pane();
 		
+		GridPane gridPane = new GridPane();
+		
+		// Put all components in this pane.
+		BorderPane sectionPane = new BorderPane();
+		
+		Button nextButton = new Button(">");
+		sectionPane.setRight(nextButton);
+		
+		Button backButton = new Button("<");
+		sectionPane.setLeft(backButton);
+	
+		VBox statisticsBox = new VBox();
+		Label statisticsLabel = new Label("Number of Properties");
+		Label numberLabel = new Label("20");
+		statisticsBox.getChildren().addAll(statisticsLabel, numberLabel);
+		sectionPane.setCenter(statisticsBox);
+
+		gridPane.add(sectionPane, 0, 0);
+		
+		pane.getChildren().add(gridPane);
 		return pane;
 	}
 	
