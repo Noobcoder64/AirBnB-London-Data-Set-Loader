@@ -21,6 +21,9 @@ public class View extends Application {
 
 	private AirbnbDataLoader airbnbDataLoader;
 
+	private Pane panel1;
+	private Pane panel2;
+	
 	public View() {
 		airbnbDataLoader = new AirbnbDataLoader();
 	}
@@ -44,17 +47,21 @@ public class View extends Application {
 
 		root.setTop(priceRangeBox);
 
+		panel1 = createPanel1();
+		panel2 = createPanel2();
+		
 		// Main content Pane.
-		Pane contentPane = createContentPane();
-		root.setCenter(contentPane);
+		root.setCenter(panel1);
 		
 		HBox navigationBox = new HBox();
 		navigationBox.setId("navigation-box");
 		
 		Button backButton = new Button("<");
+		backButton.setOnAction(e -> root.setCenter(panel1));
 		Pane space = new Pane();
 		Button forwardButton = new Button(">");
-
+		forwardButton.setOnAction(e -> root.setCenter(panel2));
+		
 		backButton.getStyleClass().add("navigation-button");	// <-- ADD A CLASS (FOR MANY COMPONENTS
 		forwardButton.getStyleClass().add("navigation-button");	// <-- 				TO HAVE THE SAME STYLE)
 		
@@ -75,7 +82,7 @@ public class View extends Application {
 
 	// Create the pane and return the Pane.
 	// Do all work here.
-	private Pane createContentPane() {
+	private Pane createPanel1() {
 		Pane pane = new Pane();
 		
 		// Put all components in this pane.
@@ -106,6 +113,12 @@ public class View extends Application {
 		return pane;
 	}
 
+	private Pane createPanel2() {
+		Pane pane = new Pane();
+		
+		return pane;
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
