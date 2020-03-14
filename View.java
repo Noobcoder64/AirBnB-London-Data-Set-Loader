@@ -87,7 +87,7 @@ public class View extends Application {
 		Pane pane = new Pane();
 
 		GridPane gridPane = new GridPane();
-		gridPane.setVgap(-20);
+		gridPane.setVgap(-17);
 		//gridPane.setGridLinesVisible(true);
 		gridPane.setStyle("-fx-background-color: orange");
 		
@@ -105,7 +105,23 @@ public class View extends Application {
 			// Exception
 			int offset = 0;
 			if (borough.getRow() % 2 == 0) offset++;
-			gridPane.add(new BoroughPane(boroughs.get(borough.getName()), borough.toString(), 50, 60), borough.getColumn() * 2 + offset, borough.getRow() * 3, 2, 3);
+			
+			String color;
+			
+			int upperQuartile = airbnbDataLoader.getBoroughStatistics().getUpperQuartile();
+			int lowerQuartile = airbnbDataLoader.getBoroughStatistics().getLowerQuartile();
+			
+			int numberOfProperties = boroughs.get(borough.getName()).getNumberOfProperties();
+			
+			if (numberOfProperties > upperQuartile) {
+				color = "red";
+			} else if (numberOfProperties < lowerQuartile) {
+				color = "green";
+			} else {
+				color = "yellow";
+			}
+			
+			gridPane.add(new BoroughPane(boroughs.get(borough.getName()), borough.toString(), color, 50, 60), borough.getColumn() * 2 + offset, borough.getRow() * 3, 2, 3);
 		}
 		
 		pane.getChildren().add(gridPane);

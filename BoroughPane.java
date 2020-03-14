@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Modality;
@@ -45,7 +46,7 @@ public class BoroughPane extends StackPane {
 	private String displayName;
 	private boolean showFront;
 	
-	public BoroughPane(Borough borough, String displayName, double minWidth, double minHeight) {
+	public BoroughPane(Borough borough, String displayName, String availabilityColor, double minWidth, double minHeight) {
 		super();
 		this.borough = borough;
 		this.displayName = displayName;
@@ -58,7 +59,7 @@ public class BoroughPane extends StackPane {
 		button.setShape(hexagon);
 		button.setPickOnBounds(false);
 		
-		setStyle("-fx-background-color: yellow");
+		setStyle("-fx-background-color: " + availabilityColor);
 		setMinSize(minWidth + 10, minHeight + 10);
 		setShape(hexagon);
 		setPickOnBounds(false);
