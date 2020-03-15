@@ -37,5 +37,17 @@ public class StatisticCalculator {
 		int index = (values.size() + 1) / 4;
 		return values.get(index);
 	}
+	
+	public int getMaxValue() {
+		Collections.sort(values);
+		int index = values.size() - 1;
+		return values.get(index);
+	}
 
+	public int getMinValue() {
+		Collections.sort(values);
+		int index = 0;
+		return values.get(index);
+	}
+	
 }
