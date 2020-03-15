@@ -1,4 +1,3 @@
-
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,7 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View extends Application {
-
+    
+    private Template t1, t2, t3, t4;
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -70,10 +71,10 @@ public class View extends Application {
         GridPane gridPane = new GridPane();
 
         // Put all components in this pane.
-        Template t1 = new Template("Average Properties", "50");
-        Template t2 = new Template("Average Properties", "50");
-        Template t3 = new Template("Average Properties", "50");
-        Template t4 = new Template("Average Properties", "50");
+        t1 = new Template("Average Properties", "50");
+        t2 = new Template("Average Properties", "50");
+        t3 = new Template("Average Properties", "50");
+        t4 = new Template("Average Properties", "50");
 
         gridPane.add(t1.seeBorderPane(), 0, 0);
         gridPane.add(t2.seeBorderPane(), 0, 1);
