@@ -50,6 +50,7 @@ public class View extends Application {
         root.setBottom(navigationBox);
 
         Scene scene = new Scene(root, 600, 400);
+        scene.getStylesheets().add("style.css");
 
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
