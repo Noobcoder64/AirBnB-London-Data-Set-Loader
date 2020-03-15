@@ -7,9 +7,15 @@ public class Borough {
 	
 	private List<AirbnbListing> properties;
 	
+	private StatisticCalculator priceStatistics;
+	
 	public Borough(String name) {
 		this.name = name;
 		this.properties = new ArrayList<>();
+		
+		for (AirbnbListing property : properties) {
+			priceStatistics.addValue(property.getPrice() * property.getMinimumNights());
+		}
 	}
 	
 	public String getName() {
@@ -26,6 +32,10 @@ public class Borough {
 	
 	public int getNumberOfProperties() {
 		return properties.size();
+	}
+	
+	public int getTotalPriceOfProperties() {
+		return priceStatistics.getTotal();
 	}
 	
 }
