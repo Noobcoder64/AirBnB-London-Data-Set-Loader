@@ -1,6 +1,6 @@
 .root {
 	-fx-padding: 10px;
-	-fx-background-color: white;
+	-fx-background-color: red;
 }
 
 #price-range-box {

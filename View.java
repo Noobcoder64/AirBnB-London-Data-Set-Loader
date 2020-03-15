@@ -12,9 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-    
+
 public class View extends Application {
-    
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -22,6 +21,7 @@ public class View extends Application {
         BorderPane root = new BorderPane();
 
         HBox priceRangeBox = new HBox();
+        priceRangeBox.setId("price-range-box");  // <-- ADD AN ID (FOR A SINGLE COMPONENT : #)
         priceRangeBox.setAlignment(Pos.CENTER_RIGHT);
 
         Label fromLabel = new Label("From:");
@@ -37,12 +37,16 @@ public class View extends Application {
         // Main content Pane.
         Pane contentPane = createContentPane();
         root.setCenter(contentPane);
-        
+
         HBox navigationBox = new HBox();
+        navigationBox.setId("navigation-box");
 
         Button backButton = new Button("<");
         Pane space = new Pane();
         Button forwardButton = new Button(">");
+
+        backButton.getStyleClass().add("navigation-button");    // <-- ADD A CLASS (FOR MANY COMPONENTS
+        forwardButton.getStyleClass().add("navigation-button"); // <--              TO HAVE THE SAME STYLE)
 
         HBox.setHgrow(space, Priority.ALWAYS);
         navigationBox.getChildren().addAll(backButton, space, forwardButton);
@@ -70,12 +74,12 @@ public class View extends Application {
         Template t2 = new Template("Average Properties", "50");
         Template t3 = new Template("Average Properties", "50");
         Template t4 = new Template("Average Properties", "50");
-        
+
         gridPane.add(t1.seeBorderPane(), 0, 0);
         gridPane.add(t2.seeBorderPane(), 0, 1);
         gridPane.add(t3.seeBorderPane(), 1, 0);
         gridPane.add(t4.seeBorderPane(), 1, 1);
-
+        
         pane.getChildren().add(gridPane);
         return pane;
     }
