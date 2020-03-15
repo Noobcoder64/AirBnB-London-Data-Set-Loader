@@ -12,80 +12,75 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+    
 public class View extends Application {
+    
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-		BorderPane root = new BorderPane();
+        BorderPane root = new BorderPane();
 
-		HBox priceRangeBox = new HBox();
-		priceRangeBox.setAlignment(Pos.CENTER_RIGHT);
+        HBox priceRangeBox = new HBox();
+        priceRangeBox.setAlignment(Pos.CENTER_RIGHT);
 
-		Label fromLabel = new Label("From:");
-		ChoiceBox<Double> fromChoice = new ChoiceBox<>();
+        Label fromLabel = new Label("From:");
+        ChoiceBox<Double> fromChoice = new ChoiceBox<>();
 
-		Label toLabel = new Label("To:");
-		ChoiceBox<Double> toChoice = new ChoiceBox<>();
+        Label toLabel = new Label("To:");
+        ChoiceBox<Double> toChoice = new ChoiceBox<>();
 
-		priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
+        priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
 
-		root.setTop(priceRangeBox);
+        root.setTop(priceRangeBox);
 
-		// Main content Pane.
-		Pane contentPane = createContentPane();
-		root.setCenter(contentPane);
-		
-		HBox navigationBox = new HBox();
+        // Main content Pane.
+        Pane contentPane = createContentPane();
+        root.setCenter(contentPane);
+        
+        HBox navigationBox = new HBox();
 
-		Button backButton = new Button("<");
-		Pane space = new Pane();
-		Button forwardButton = new Button(">");
+        Button backButton = new Button("<");
+        Pane space = new Pane();
+        Button forwardButton = new Button(">");
 
-		HBox.setHgrow(space, Priority.ALWAYS);
-		navigationBox.getChildren().addAll(backButton, space, forwardButton);
+        HBox.setHgrow(space, Priority.ALWAYS);
+        navigationBox.getChildren().addAll(backButton, space, forwardButton);
 
-		root.setBottom(navigationBox);
+        root.setBottom(navigationBox);
 
-		Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 600, 400);
 
-		primaryStage.setResizable(false);
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("London Property Marketlace");
+        primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("London Property Marketlace");
 
-		primaryStage.show();
-	}
+        primaryStage.show();
+    }
 
-	// Create the pane and return the Pane.
-	// Do all work here.
-	private Pane createContentPane() {
-		Pane pane = new Pane();
-		GridPane gridPane = new GridPane();
-		
-		// Put all components in this pane.
-		BorderPane sectionPane = new BorderPane();
-		
-		Button nextButton = new Button(">");
-		sectionPane.setRight(nextButton);
-		
-		Button backButton = new Button("<");
-		sectionPane.setLeft(backButton);
-	
-		VBox statisticsBox = new VBox();
-		Label statisticsLabel = new Label("Number of Properties");
-		Label numberLabel = new Label("20");
-		statisticsBox.getChildren().addAll(statisticsLabel, numberLabel);
-		sectionPane.setCenter(statisticsBox);
+    // Create the pane and return the Pane.
+    // Do all work here.
+    private Pane createContentPane() {
+        Pane pane = new Pane();
+        GridPane gridPane = new GridPane();
 
-		gridPane.add(sectionPane, 0, 0);
-				
-		pane.getChildren().add(gridPane);
-		return pane;
-	}
+        // Put all components in this pane.
+        Template t1 = new Template("Average Properties", "50");
+        Template t2 = new Template("Average Properties", "50");
+        Template t3 = new Template("Average Properties", "50");
+        Template t4 = new Template("Average Properties", "50");
+        
+        gridPane.add(t1.seeBorderPane(), 0, 0);
+        gridPane.add(t2.seeBorderPane(), 0, 1);
+        gridPane.add(t3.seeBorderPane(), 1, 0);
+        gridPane.add(t4.seeBorderPane(), 1, 1);
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+        pane.getChildren().add(gridPane);
+        return pane;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }
