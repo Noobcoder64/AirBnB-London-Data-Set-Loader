@@ -8,6 +8,14 @@
 	-fx-spacing: 10.0px;
 }
 
+#price-range-box > .label {
+	-fx-background-color: blue;
+}
+
+#price-range-box > .choice-box {
+	-fx-background-color: red;
+}
+
 #navigation-box {
 	-fx-background-color: white;
 	-fx-border-top-style: #D0D0D0;
