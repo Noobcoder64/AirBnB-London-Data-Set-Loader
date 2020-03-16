@@ -28,13 +28,13 @@ public class StatisticCalculator {
 
 	public int getUpperQuartile() {
 		Collections.sort(values);
-		int index = (values.size() + 1) * 3 / 4;
+		int index = (values.size()) * 3 / 4;
 		return values.get(index);
 	}
 	
 	public int getLowerQuartile() {
 		Collections.sort(values);
-		int index = (values.size() + 1) / 4;
+		int index = (values.size()) / 4;
 		return values.get(index);
 	}
 	

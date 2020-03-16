@@ -46,27 +46,36 @@ public class BoroughPane extends StackPane {
 	private String displayName;
 	private boolean showFront;
 	
-	public BoroughPane(Borough borough, String displayName, String availabilityColor, double minWidth, double minHeight) {
+	public BoroughPane(String displayName, double minWidth, double minHeight) {
 		super();
-		this.borough = borough;
 		this.displayName = displayName;
 		this.showFront = true;
 		
 		button = new Button(displayName);
+		button.setDisable(true);
 		getChildren().add(button);
 		
 		button.setMinSize(minWidth, minHeight);
 		button.setShape(hexagon);
 		button.setPickOnBounds(false);
 		
-		setStyle("-fx-background-color: " + availabilityColor);
+		setStyle("-fx-background-color: grey");
 		setMinSize(minWidth + 10, minHeight + 10);
 		setShape(hexagon);
 		setPickOnBounds(false);
+	}
+	
+	public void setBorough(Borough borough) {
+		this.borough = borough;
 		
+		button.setDisable(false);
 		button.setOnMouseClicked(this::showProperties);
 		setOnMouseEntered(this::flip);
 		setOnMouseExited(this::flip);
+	}
+	
+	public void setColor(String color) {
+		setStyle("-fx-background-color: " + color);
 	}
 	
 	private void showProperties(MouseEvent event) {

@@ -1,8 +1,11 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,19 +18,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View extends Application {
 
-	private AirbnbDataLoader airbnbDataLoader;
+	private Controller controller;
 
-	private Pane panel1;
-	private Pane panel2;
-	
-	public View() {
-		airbnbDataLoader = new AirbnbDataLoader();
-	}
+	private List<Pane> panels;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -38,30 +37,49 @@ public class View extends Application {
 		priceRangeBox.setId("price-range-box");  // <-- ADD AN ID (FOR A SINGLE COMPONENT : #)
 		priceRangeBox.setAlignment(Pos.CENTER_RIGHT);
 		
+		int maxPrice = 7000; //((controller.getPriceStatistics().getMaxValue() + 99) / 100) * 100;
+		int minPrice = 0; //controller.getPriceStatistics().getMinValue() / 100 * 100;
+		
+		ObservableList<Integer> observableList = FXCollections.observableArrayList();
+		
+		for (int i = minPrice; i <= maxPrice; i += 100) {
+			observableList.add(i);
+		}
+		
 		Label fromLabel = new Label("From:");
-		ChoiceBox<Double> fromChoice = new ChoiceBox<>();
-
+		ChoiceBox<Integer> fromChoice = new ChoiceBox<>();
+		fromChoice.setItems(observableList);
+		
 		Label toLabel = new Label("To:");
-		ChoiceBox<Double> toChoice = new ChoiceBox<>();
-
+		ChoiceBox<Integer> toChoice = new ChoiceBox<>();
+		toChoice.setItems(observableList);
+		
 		priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
-
 		root.setTop(priceRangeBox);
 
-		panel1 = createPanel1();
-		panel2 = createPanel2();
+		controller = new Controller(6000, 7000);
 		
+		panels = new ArrayList<>();
+		
+		panels.add(createPanel1());
+		panels.add(createPanel2());
+		panels.add(createPanel3());
+	
 		// Main content Pane.
-		root.setCenter(panel1);
+		root.setCenter(panels.get(0));
 		
 		HBox navigationBox = new HBox();
 		navigationBox.setId("navigation-box");
 		
 		Button backButton = new Button("<");
-		backButton.setOnAction(e -> root.setCenter(panel1));
+		backButton.setOnAction(e -> { root.setCenter(panels.get(1));
+			primaryStage.sizeToScene();
+		});
 		Pane space = new Pane();
 		Button forwardButton = new Button(">");
-		forwardButton.setOnAction(e -> root.setCenter(panel2));
+		forwardButton.setOnAction(e -> { root.setCenter(panels.get(2));
+			primaryStage.sizeToScene();
+		});
 		
 		backButton.getStyleClass().add("navigation-button");	// <-- ADD A CLASS (FOR MANY COMPONENTS
 		forwardButton.getStyleClass().add("navigation-button");	// <-- 				TO HAVE THE SAME STYLE)
@@ -81,54 +99,93 @@ public class View extends Application {
 		primaryStage.show();
 	}
 
+	private Pane createPanel1() {
+		StackPane stackPane = new StackPane();
+		stackPane.setMinSize(500, 500);
+		stackPane.setAlignment(Pos.CENTER);
+		
+		VBox vBox = new VBox();
+		
+		Label label = new Label("Welcome");
+		vBox.getChildren().add(label);
+		
+		HBox priceRangeBox = new HBox();
+		
+		Label fromLabel = new Label("From:");
+		ChoiceBox<Double> fromChoice = new ChoiceBox<>();
+
+		Label toLabel = new Label("To:");
+		ChoiceBox<Double> toChoice = new ChoiceBox<>();
+
+		priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
+		vBox.getChildren().add(priceRangeBox);
+		
+		stackPane.getChildren().add(vBox);
+		return stackPane;
+	}
+	
 	// Create the pane and return the Pane.
 	// Do all work here.
-	private Pane createPanel1() {
+	private Pane createPanel2() {
 		Pane pane = new Pane();
 
 		GridPane gridPane = new GridPane();
-		gridPane.setVgap(-17);
+		gridPane.setVgap(-20);
+		gridPane.setHgap(2);
 		//gridPane.setGridLinesVisible(true);
 		gridPane.setStyle("-fx-background-color: orange");
 		
 		for (int i = 0; i < 7 * 2; i++) {
-			ColumnConstraints columnConstraints = new ColumnConstraints(30);
+			ColumnConstraints columnConstraints = new ColumnConstraints(40);
 			gridPane.getColumnConstraints().add(columnConstraints);
 		}
+			
+		for (int i = 0; i < 7; i++) {
+			RowConstraints rowConstraints = new RowConstraints(90);
+			gridPane.getRowConstraints().add(rowConstraints);
+		}
 		
-		RowConstraints rowConstraints = new RowConstraints(70 / 3);
-		gridPane.getRowConstraints().add(rowConstraints);		
-		
-		Map<String,Borough> boroughs = airbnbDataLoader.getBoroughs();
+		Map<String,Borough> boroughs = controller.getBoroughs();
 	
 		for (Boroughs borough : Boroughs.values()) {
 			// Exception
+			
 			int offset = 0;
 			if (borough.getRow() % 2 == 0) offset++;
 			
-			String color;
+			BoroughPane boroughPane = new BoroughPane(borough.toString(), 70, 80);
 			
-			int upperQuartile = airbnbDataLoader.getBoroughStatistics().getUpperQuartile();
-			int lowerQuartile = airbnbDataLoader.getBoroughStatistics().getLowerQuartile();
+			gridPane.add(boroughPane, borough.getColumn() * 2 + offset, borough.getRow(), 2, 1);
 			
-			int numberOfProperties = boroughs.get(borough.getName()).getNumberOfProperties();
-			
-			if (numberOfProperties > upperQuartile) {
-				color = "red";
-			} else if (numberOfProperties < lowerQuartile) {
-				color = "green";
-			} else {
-				color = "yellow";
+			if (boroughs.containsKey(borough.getName())) {
+				Borough actualBorough = boroughs.get(borough.getName());
+				
+				boroughPane.setBorough(actualBorough);
+				
+				int upperQuartile = controller.getBoroughStatistics().getUpperQuartile();
+				int lowerQuartile = controller.getBoroughStatistics().getLowerQuartile();
+				
+				int numberOfProperties = actualBorough.getNumberOfProperties();
+				
+				String color;
+				
+				if (numberOfProperties > upperQuartile) {
+					color = "red";
+				} else if (numberOfProperties < lowerQuartile) {
+					color = "green";
+				} else {
+					color = "yellow";
+				}
+				boroughPane.setColor(color);
 			}
 			
-			gridPane.add(new BoroughPane(boroughs.get(borough.getName()), borough.toString(), color, 50, 60), borough.getColumn() * 2 + offset, borough.getRow() * 3, 2, 3);
 		}
 		
 		pane.getChildren().add(gridPane);
 		return pane;
 	}
 
-	private Pane createPanel2() {
+	private Pane createPanel3() {
 		Pane pane = new Pane();
 		
 		GridPane gridPane = new GridPane();

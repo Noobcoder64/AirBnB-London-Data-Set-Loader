@@ -16,22 +16,9 @@ public class AirbnbDataLoader {
  
 	private List<AirbnbListing> properties;
 	
-	private Map<String,Borough> boroughs;
-	
-	private StatisticCalculator priceStatistics;
-	
-	private StatisticCalculator boroughStatistics;
-	
 	public AirbnbDataLoader() {
 		this.properties = new ArrayList<>();
-		this.boroughs = new HashMap<>();
-		priceStatistics = new StatisticCalculator();
-		boroughStatistics = new StatisticCalculator();
-		
 		load();
-		for (Borough borough : boroughs.values()) {
-			boroughStatistics.addValue(borough.getNumberOfProperties());
-		}
 	}
 	
     /** 
@@ -68,14 +55,6 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 properties.add(property);
-                
-                if (!boroughs.containsKey(neighbourhood)) {
-                	boroughs.put(neighbourhood, new Borough(neighbourhood));
-                }
-                
-                boroughs.get(neighbourhood).addProperty(property);
-                
-                priceStatistics.addValue(price);
             }
             
         } catch(IOException | URISyntaxException e){
@@ -113,18 +92,6 @@ public class AirbnbDataLoader {
 
     public List<AirbnbListing> getProperties() {
 		return properties;
-	}
-    
-    public Map<String, Borough> getBoroughs() {
-		return boroughs;
-	}
-    
-    public StatisticCalculator getPriceStatistics() {
-		return priceStatistics;
-	}
-    
-    public StatisticCalculator getBoroughStatistics() {
-		return boroughStatistics;
 	}
     
 }
