@@ -35,7 +35,7 @@ public class View extends Application {
 		
 		HBox priceRangeBox = new HBox();
 		priceRangeBox.setId("price-range-box");  // <-- ADD AN ID (FOR A SINGLE COMPONENT : #)
-		priceRangeBox.setAlignment(Pos.CENTER_RIGHT);
+		//priceRangeBox.setAlignment(Pos.CENTER_RIGHT);
 		
 		int maxPrice = 7000; //((controller.getPriceStatistics().getMaxValue() + 99) / 100) * 100;
 		int minPrice = 0; //controller.getPriceStatistics().getMinValue() / 100 * 100;

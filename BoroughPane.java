@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -79,7 +80,21 @@ public class BoroughPane extends StackPane {
 	}
 	
 	private void showProperties(MouseEvent event) {
-		Pane pane = new Pane();
+		VBox root = new VBox();
+		
+		HBox sortBox = new HBox();
+		
+		Label sortLabel = new Label("Sort By:");
+		ChoiceBox<String> sortChoice = new ChoiceBox<>();
+		sortChoice.getItems().add("Host name");
+		sortChoice.getItems().add("Price");
+		sortChoice.getItems().add("Number of reviews");
+		sortChoice.getItems().add("Minimum number of nights");
+		
+		Button sortButton = new Button("Sort");
+		sortButton.setOnAction(this::sortProperties);
+		
+		sortBox.getChildren().addAll(sortLabel, sortChoice, sortButton);
 		
 		/*
 		TableColumn<AirbnbListing,String> hostNameColumn = new TableColumn<>("Host name");
@@ -138,9 +153,7 @@ public class BoroughPane extends StackPane {
 		
 		int row = 0;
 		for (AirbnbListing property : borough.getProperties()) {
-			
-			
-			
+				
 			bodyPane.add(new Label(property.getHost_name()), 0, row);
 			bodyPane.add(new Label(String.valueOf(property.getPrice())), 1, row);
 			bodyPane.add(new Label(String.valueOf(property.getNumberOfReviews())), 2, row);
@@ -153,10 +166,11 @@ public class BoroughPane extends StackPane {
 		
 		vBox.getChildren().add(scrollPane);
 		
-		pane.getChildren().add(vBox);
+		root.getChildren().add(sortBox);
+		root.getChildren().add(vBox);
 		
 		
-		Scene scene = new Scene(pane);
+		Scene scene = new Scene(root);
 		
 		Stage stage = new Stage();
 		stage.setResizable(false);
@@ -191,6 +205,10 @@ public class BoroughPane extends StackPane {
 	    rotator.setCycleCount(1);
 	        
 	    return rotator;
+	}
+	
+	private void sortProperties(ActionEvent event) {
+		
 	}
 
 }
