@@ -90,7 +90,7 @@ public class View extends Application {
 		root.setBottom(navigationBox);
 
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add("css/style.css");
+		scene.getStylesheets().add("style.css");
 		
 		//primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
@@ -102,7 +102,7 @@ public class View extends Application {
 	private Pane createPanel1() {
 		StackPane stackPane = new StackPane();
 		stackPane.setMinSize(500, 500);
-		stackPane.setAlignment(Pos.CENTER);
+		/*stackPane.setAlignment(Pos.CENTER);
 		
 		VBox vBox = new VBox();
 		
@@ -120,7 +120,7 @@ public class View extends Application {
 		priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
 		vBox.getChildren().add(priceRangeBox);
 		
-		stackPane.getChildren().add(vBox);
+		stackPane.getChildren().add(vBox);*/
 		return stackPane;
 	}
 	
@@ -133,7 +133,6 @@ public class View extends Application {
 		gridPane.setVgap(-20);
 		gridPane.setHgap(2);
 		//gridPane.setGridLinesVisible(true);
-		gridPane.setStyle("-fx-background-color: orange");
 		
 		for (int i = 0; i < 7 * 2; i++) {
 			ColumnConstraints columnConstraints = new ColumnConstraints(40);
@@ -154,7 +153,7 @@ public class View extends Application {
 			if (borough.getRow() % 2 == 0) offset++;
 			
 			BoroughPane boroughPane = new BoroughPane(borough.toString(), 70, 80);
-			
+			boroughPane.getStyleClass().add("borough-pane");	
 			gridPane.add(boroughPane, borough.getColumn() * 2 + offset, borough.getRow(), 2, 1);
 			
 			if (boroughs.containsKey(borough.getName())) {

@@ -1,0 +1,37 @@
+.root {
+	-fx-padding: 8.0px;
+	-fx-background-color: white;
+}
+
+#price-range-box {
+	-fx-background-color: white;
+	-fx-spacing: 10.0px;
+}
+
+#navigation-box {
+	-fx-background-color: white;
+	-fx-border-top-style: #D0D0D0;
+}
+
+.navigation-button {
+	-fx-font-size: 13.0px;
+    -fx-background-color: snow;
+    -fx-border-radius: 4.0px;
+    -fx-border-color: #D0D0D0;
+    -fx-pref-width: 40.0px;
+}
+
+.navigation-button:hover {
+    -fx-font-size: 14.0px;
+    -fx-font-style: italic;
+    -fx-background-color: ghostwhite;
+    -fx-border-color: #D0D0D0;
+    -fx-pref-width: 42.0px;
+}
+
+.boroug-pane {
+}
+
+.borough-pane > .button {
+	 -fx-background-color: red;
+}
