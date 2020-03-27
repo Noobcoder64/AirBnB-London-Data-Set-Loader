@@ -9,20 +9,25 @@ public class Controller {
 	
 	AirbnbDataLoader airbnbDataLoader;
 	
+	private List<AirbnbListing> allProperties;
+	
 	private List<AirbnbListing> properties;
 	
 	private Map<String,Borough> boroughs;
 	
-	private StatisticCalculator priceStatistics;
-	
 	private StatisticCalculator boroughStatistics;
 	
-	public Controller(int startPrice, int endPrice) {
+	private int startPrice;
+	private int endPrice;
+	
+	public Controller() {
 		airbnbDataLoader = new AirbnbDataLoader();
 		boroughs = new HashMap<>();
 		
-		List<AirbnbListing> allProperties = airbnbDataLoader.getProperties();
-		
+		allProperties = airbnbDataLoader.getProperties();
+	}
+	
+	public void processRange() {
 		this.properties = allProperties.stream().filter(property -> property.getPrice() >= startPrice && property.getPrice() <= endPrice).collect(Collectors.toList());
 		
 		properties.stream().forEach(property -> {
@@ -35,26 +40,34 @@ public class Controller {
 		
 		});
 		
-		
+		/*
 		priceStatistics = new StatisticCalculator();
 		for (AirbnbListing property : properties) {
 			priceStatistics.addValue(property.getPrice());
 		}
+		*/
 		
 		boroughStatistics = new StatisticCalculator();
 		
 		for (Borough borough : boroughs.values()) {
 			boroughStatistics.addValue(borough.getNumberOfProperties());
 		}
-		
+	}
+	
+	public void setStartPrice(int startPrice) {
+		this.startPrice = startPrice;
+	}
+	
+	public void setEndPrice(int endPrice) {
+		this.endPrice = endPrice;
 	}
 	
 	public Map<String, Borough> getBoroughs() {
 		return boroughs;
 	}
 	
-	public StatisticCalculator getPriceStatistics() {
-		return priceStatistics;
+	public StatisticCalculator getAllPriceStatistics() {
+		return airbnbDataLoader.getPriceStatistics();
 	}
 	
 	public StatisticCalculator getBoroughStatistics() {

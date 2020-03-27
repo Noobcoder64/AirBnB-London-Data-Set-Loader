@@ -12,12 +12,21 @@ import java.util.Map;
 import com.opencsv.CSVReader;
 import java.net.URISyntaxException;
 
+/**
+ * Utility class to load the listings of properties for rental in Airbnb.
+ * 
+ * @author
+ *
+ */
 public class AirbnbDataLoader {
  
-	private List<AirbnbListing> properties;
+	private List<AirbnbListing> properties;	// All properties for rental in Airbnb.
+	
+	private StatisticCalculator priceStatistics; // Statistics derived from the prices of all properties.
 	
 	public AirbnbDataLoader() {
 		this.properties = new ArrayList<>();
+		priceStatistics = new StatisticCalculator();
 		load();
 	}
 	
@@ -55,6 +64,7 @@ public class AirbnbDataLoader {
                         reviewsPerMonth, calculatedHostListingsCount, availability365
                     );
                 properties.add(property);
+                priceStatistics.addValue(price);
             }
             
         } catch(IOException | URISyntaxException e){
@@ -65,7 +75,7 @@ public class AirbnbDataLoader {
     }
 
     /**
-     *
+     * Converts a String into a Double.
      * @param doubleString the string to be converted to Double type
      * @return the Double value of the string, or -1.0 if the string is 
      * either empty or just whitespace
@@ -78,7 +88,7 @@ public class AirbnbDataLoader {
     }
 
     /**
-     *
+     * Converts a String into an Integer.
      * @param intString the string to be converted to Integer type
      * @return the Integer value of the string, or -1 if the string is 
      * either empty or just whitespace
@@ -90,8 +100,20 @@ public class AirbnbDataLoader {
         return -1;
     }
 
+    /**
+     * Returns all properties for rental in Airbnb.
+     * @return properties for rental in Airbnb
+     */
     public List<AirbnbListing> getProperties() {
 		return properties;
+	}
+    
+    /**
+     * Returns the statistics derived from the prices of all properties.
+     * @return the statistics derived from the prices of all properties
+     */
+    public StatisticCalculator getPriceStatistics() {
+		return priceStatistics;
 	}
     
 }

@@ -20,25 +20,25 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Pane that displays the properties available for rental in a borough.
+ * A dropdown menu enables the sorting of the properties by host name, price, number of reviews and minimum number of nights.
+ * Clicking a property pops up a new window containing the description of that property.
+ */
 public class BoroughPropertiesWindow extends Pane {
 	
-	private Borough borough;
-	
-	private List<AirbnbListing> properties;
-	
-	private HBox sortBox;
+	private List<AirbnbListing> properties;	// Properties to display.
 	
 	private ChoiceBox<Comparator<AirbnbListing>> sortChoice;
 	
 	private Pane bodyPane;
 	
 	public BoroughPropertiesWindow(Borough borough) {
-		this.borough = borough;
 		this.properties = new ArrayList<>(borough.getProperties());
 		
 		VBox root = new VBox();
 		
-		sortBox = new HBox();
+		HBox sortBox = new HBox();
 		
 		Label sortLabel = new Label("Sort By:");
 		sortChoice = new ChoiceBox<>();
@@ -124,6 +124,9 @@ public class BoroughPropertiesWindow extends Pane {
 		stage.show();
 	}
 	
+	/**
+	 * Sorts properties by the selected option in the dropdown menu (choice box).
+	 */
 	private void sortProperties(ActionEvent event) {
 		bodyPane.getChildren().clear();
 		
@@ -131,6 +134,9 @@ public class BoroughPropertiesWindow extends Pane {
 		showProperties();
 	}
 	
+	/**
+	 * Displays the properties.
+	 */
 	private void showProperties() {
 		bodyPane.getChildren().clear();
 		
@@ -138,7 +144,6 @@ public class BoroughPropertiesWindow extends Pane {
 			PropertyRow propertyRow = new PropertyRow(property);
 			bodyPane.getChildren().add(propertyRow);
 		}
-		
 	}
 	
 }

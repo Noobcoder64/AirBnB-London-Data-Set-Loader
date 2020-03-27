@@ -5,3 +5,12 @@
 /Borough.class
 /BoroughPane.class
 /Boroughs.class
+/BoroughPropertiesWindow.class
+/Controller.class
+/HostNameComparator.class
+/StatisticCalculator.class
+/MinimumNightsComparator.class
+/PriceComparator.class
+/PropertyRow.class
+/ReviewsNumberComparator.class
+/MapPane.class
