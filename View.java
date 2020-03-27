@@ -57,7 +57,7 @@ public class View extends Application {
 		priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
 		root.setTop(priceRangeBox);
 
-		controller = new Controller(6000, 7000);
+		controller = new Controller(300, 400);
 		
 		panels = new ArrayList<>();
 		
