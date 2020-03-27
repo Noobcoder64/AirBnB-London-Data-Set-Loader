@@ -4,12 +4,22 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
+/**
+ * Represents the map containing boroughs to be interacted with.
+ * All the available boroughs are displayed but those that don't have any properties
+ * within the selected price range are disabled.
+ * Layout designed as a honeycomb with the boroughs positioned somewhat geographically accurately.
+ * The border of each borough's representation changes in colour depending on the number of properties availabe for rental in it.
+ * Statistics such as upper and lower quartile are used to determine the range in which a borough is cosidered
+ * to have more or less properties than others.
+ */
 public class MapPane extends GridPane {
 	
-	private Map<String,Borough> boroughs;
+	private Map<String,Borough> boroughs;	// Boroughs to be displayed in the map.
 	
-	private int upperQuartile;
-	private int lowerQuartile;
+	private int upperQuartile;	// Prices above this value will have a red border.
+	private int lowerQuartile;	// Prices below this value will have a green border.
+	// Prices between the upper and lower quartile will have a yellow border.
 	
 	public MapPane(Map<String,Borough> boroughs, int upperQuartile, int lowerQuartile) {
 		this.boroughs = boroughs;
@@ -30,9 +40,8 @@ public class MapPane extends GridPane {
 			getRowConstraints().add(rowConstraints);
 		}
 		
-		//int offset = 0;
-		//if (borough.getRow() % 2 == 0) offset++;
-			
+		// Add the boroughs.
+		
 		addBorough("Enfield", "ENFI", 1, 3, 0);
 		
 		addBorough("Barnet", "BARN", 0, 2, 1);
@@ -74,6 +83,15 @@ public class MapPane extends GridPane {
 		addBorough("Bromley", "BROM", 1, 4, 6);
 	}
 	
+	/**
+	 * Add a borough in the map
+	 * 
+	 * @param name Name of the borough.
+	 * @param displayName Name to be displayed on the button.
+	 * @param offset Used for honeycomb alignment.
+	 * @param column Column to be positioned in the honeycomb layout.
+	 * @param row Row to be positioned in the honeycomb layout.
+	 */
 	private void addBorough(String name, String displayName, int offset, int column, int row) {
 		BoroughPane boroughPane = new BoroughPane(displayName, 70, 80);
 		boroughPane.getStyleClass().add("borough-pane");

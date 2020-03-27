@@ -50,7 +50,6 @@ public class View extends Application {
 		int minPrice = controller.getAllPriceStatistics().getMinValue() / 100 * 100;
 		
 		ObservableList<Integer> observableList = FXCollections.observableArrayList();
-		
 		for (int i = minPrice; i <= maxPrice; i += 100) {
 			observableList.add(i);
 		}
