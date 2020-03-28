@@ -1,6 +1,7 @@
 /AirbnbDataLoader.class
 /AirbnbListing.class
 /View.class
+<<<<<<< HEAD
 /BoroughButton.class
 /Borough.class
 /BoroughPane.class
@@ -20,3 +21,19 @@
 /PropertyDescriptionStage.class
 /NormalRowBox.class
 /PropertyRowBox.class
+=======
+/View$Template.class
+/Template.class
+/Borough.class
+/BoroughPane.class
+/BoroughPropertiesWindow.class
+/Boroughs.class
+/Controller.class
+/HostNameComparator.class
+/MapPane.class
+/MinimumNightsComparator.class
+/PriceComparator.class
+/PropertyRow.class
+/ReviewsNumberComparator.class
+/StatisticCalculator.class
+>>>>>>> branch 'k19014844' of https://github.kcl.ac.uk/k1921959/PPA-Assignment-4.git

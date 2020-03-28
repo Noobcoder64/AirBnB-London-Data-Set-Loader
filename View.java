@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,6 +5,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -172,31 +172,67 @@ public class View extends Application {
 	}
 
 	// Panel 3
-	private Pane createPanel3() {
-		Pane pane = new Pane();
-		
-		GridPane gridPane = new GridPane();
-		
-		// Put all components in this pane.
-		BorderPane sectionPane = new BorderPane();
-		
-		Button nextButton = new Button(">");
-		sectionPane.setRight(nextButton);
-		
-		Button backButton = new Button("<");
-		sectionPane.setLeft(backButton);
-	
-		VBox statisticsBox = new VBox();
-		Label statisticsLabel = new Label("Number of Properties");
-		Label numberLabel = new Label("20");
-		statisticsBox.getChildren().addAll(statisticsLabel, numberLabel);
-		sectionPane.setCenter(statisticsBox);
+    private Pane createPanel3() {
+        Pane pane = new Pane();
 
-		gridPane.add(sectionPane, 0, 0);
-		
-		pane.getChildren().add(gridPane);
-		return pane;
-	}
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setId("gridPane");
+        
+        gridPane.setVgap(10);
+        gridPane.setHgap(10);
+
+        //Creating VBox's to display the statistics
+        VBox v1 = createVBox("Number of Properties\n\n"+ String.valueOf(controller.getAvailableProperties()));
+        VBox v2 = createVBox("Total average reviews\n\n"+ String.valueOf(controller.getAverageReviews()));
+        VBox v3 = createVBox("Total Number of Home/Apartments\n\n"+ String.valueOf(controller.getHomeApartments()));
+        VBox v4 = createVBox("Most expensive borough\n\n"+ String.valueOf(controller.getMostExpensiveBorough()));
+        VBox v5 = createVBox("Cheapest borough\n\n"+ String.valueOf(controller.getCheapestBorough()));
+        VBox v6 = createVBox("Most expensive property description\n\n"+ String.valueOf(controller.getMostExpensiveDescription() + "\n\n Host Name: " + controller.getExpensiveHost()));
+        VBox v7 = createVBox("Cheapest property description\n\n"+ String.valueOf(controller.getCheapestBoroughDescription()) + "\n\n Host Name: " + controller.getCheapestHost());
+        VBox v8 = createVBox("Most reviewed borough\n\n"+ String.valueOf(controller.getMostReviewedBorough()));
+        
+        //Creating BorderPane and adding the VBox as parameter to change in button action
+        BorderPane b1 = createBorderPane(v1, v5);
+        BorderPane b2 = createBorderPane(v3, v6);
+        BorderPane b3 = createBorderPane(v2, v7);
+        BorderPane b4 = createBorderPane(v4, v8);
+        
+        //gridPane.setAlignment(Pos.CENTER);
+        //Laying the borderpane accordingly
+        gridPane.add(b1, 0, 0);
+        gridPane.add(b2, 0, 1);
+        gridPane.add(b3, 1, 0);
+        gridPane.add(b4, 1, 1);
+
+        pane.getChildren().add(gridPane);
+        pane.setMinSize(900, 400);
+        return pane;
+    }
+
+    public VBox createVBox(String Context){
+        VBox centerView = new VBox();
+        Label statistics = new Label(Context);
+        statistics.setPrefSize(400, 200);
+        centerView.getChildren().add(statistics);
+        centerView.setId("StatisticVBox");
+        return centerView;
+    }
+
+    public BorderPane createBorderPane(VBox v1, VBox v2){
+        BorderPane layout = new BorderPane();
+        layout.setCenter(v1);
+        Button next = new Button(">");
+        next.setMinSize(50, 200);
+        layout.setRight(next);
+        next.setOnAction(e -> layout.setCenter(v2));
+        Button back = new Button("<");
+        back.setMinSize(50, 200);
+        layout.setLeft(back);
+        back.setOnAction(e -> layout.setCenter(v1));
+        layout.setId("StatisticBorderPane");
+        return layout;
+    }
 	
 	private void nextPanel(ActionEvent event) {
 		panelIndex = (panelIndex + 1 ) % panels.size();
