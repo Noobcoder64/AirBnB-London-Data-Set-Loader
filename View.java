@@ -31,7 +31,6 @@ public class View extends Application {
 	private Controller controller;
 
 	private List<Pane> panels;
-	
 	private int panelIndex;
 	
 	ChoiceBox<Integer> fromChoice;
@@ -44,6 +43,8 @@ public class View extends Application {
 	
 	private Label fromPriceLabel;
 	private Label toPriceLabel;
+	
+	private Stage panel3;
 	
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -90,7 +91,6 @@ public class View extends Application {
 		panels = new ArrayList<>();
 		
 		panels.add(createPanel1());
-		panels.add(null);
 		panels.add(null);
 		
 		// Main content Pane.
@@ -172,7 +172,9 @@ public class View extends Application {
 	}
 
 	// Panel 3
-    private Pane createPanel3() {
+    private Stage createPanel3() {
+    	Stage stage = new Stage();
+    	
         Pane pane = new Pane();
 
         GridPane gridPane = new GridPane();
@@ -207,7 +209,15 @@ public class View extends Application {
 
         pane.getChildren().add(gridPane);
         pane.setMinSize(900, 400);
-        return pane;
+        
+        Scene scene = new Scene(pane);
+		scene.getStylesheets().add("style.css");
+		
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.setTitle("Statistics");
+
+        return stage;
     }
 
     public VBox createVBox(String Context){
@@ -246,6 +256,14 @@ public class View extends Application {
 	
 	private void changePanel() {
 		root.setCenter(panels.get(panelIndex));
+		
+		// Displays panel 3 whenever panel 2 is viewed
+		if (panelIndex == 1) {
+			panel3.show();
+		} else {
+			panel3.hide();
+		}
+		
 		stage.sizeToScene();
 	}
 	
@@ -268,7 +286,7 @@ public class View extends Application {
 		controller.setEndPrice(toChoice.getValue());
 		controller.processRange();
 		panels.set(1, createPanel2());
-		panels.set(2, createPanel3());
+		panel3 = createPanel3();
 		changePanel();
 	}
 	
