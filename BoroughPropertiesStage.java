@@ -95,7 +95,7 @@ public class BoroughPropertiesStage extends Stage {
 		scrollPane.setFitToWidth(true);
 		
 		bodyPane = new VBox();
-		headerPane.getStyleClass().add("body-pane");
+		bodyPane.getStyleClass().add("body-pane");
 		
 		showProperties();
 		

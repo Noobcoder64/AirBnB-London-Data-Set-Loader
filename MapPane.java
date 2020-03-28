@@ -111,6 +111,7 @@ public class MapPane extends GridPane {
 			} else {
 				color = "yellow";
 			}
+			
 			boroughPane.setColor(color);
 		}
 		

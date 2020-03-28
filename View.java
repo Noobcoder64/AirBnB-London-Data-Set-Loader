@@ -1,13 +1,12 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -42,6 +41,9 @@ public class View extends Application {
 	
 	private Button backButton;
 	private Button forwardButton;
+	
+	private Label fromPriceLabel;
+	private Label toPriceLabel;
 	
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -125,10 +127,38 @@ public class View extends Application {
 
 	// Panel 1
 	private Pane createPanel1() {
+		BorderPane pane = new BorderPane();
+		
 		StackPane stackPane = new StackPane();
-		stackPane.setMinSize(500, 500);
-
-		return stackPane;
+		stackPane.setId("welcome-pane");
+		
+		Label welcomeLabel = new Label("Welcome to London's Property MarketPlace.\r\n" +
+				"Please enter a price range to start.\r\n" +
+				"Subsequently, on the right panel you will be able to see Boroughs in London which\r\n" +
+				"have properties for rental within your selected price range.\r\n" +
+				"The border colour in each borough suggests the availibility of properties. \r\n" +
+				"Hover over a borough to see the number of properties. \r\n" +
+				"Click on a borough to view the properties in a table. \r\n" +
+				"Click a property row to view the description of that property.");
+		welcomeLabel.setId("welcome-label");
+		
+		stackPane.getChildren().add(welcomeLabel);
+		
+		HBox selectedRangeBox = new HBox();
+		selectedRangeBox.setAlignment(Pos.CENTER);
+		selectedRangeBox.setId("selected-range-box");
+		
+		fromPriceLabel = new Label("N/A");
+		toPriceLabel = new Label("N/A");
+		
+		selectedRangeBox.getChildren().add(new Label("Selected price range:"));
+		selectedRangeBox.getChildren().add(fromPriceLabel);
+		selectedRangeBox.getChildren().add(new Label("-"));
+		selectedRangeBox.getChildren().add(toPriceLabel);
+		
+		pane.setCenter(stackPane);
+		pane.setBottom(selectedRangeBox);
+		return pane;
 	}
 	
 	// Panel 2
@@ -192,6 +222,8 @@ public class View extends Application {
 			backButton.setDisable(false);
 			forwardButton.setDisable(false);
 			processSelectedPriceRange();
+			fromPriceLabel.setText(String.valueOf(fromChoice.getValue()));
+			toPriceLabel.setText(String.valueOf(toChoice.getValue()));
 		}
 	}
 	
