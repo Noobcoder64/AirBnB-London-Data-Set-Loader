@@ -6,11 +6,12 @@ import javafx.stage.Stage;
 
 public class PropertyDescriptionStage extends Stage {
 	
-	private int row = 0;
 	private GridPane gridPane;
+	int row;
 	
 	public PropertyDescriptionStage(AirbnbListing property) {
 		gridPane = new GridPane();
+		gridPane.setId("property-description-grid-pane");
 		
 		addDescription("Name", property.getName());
 		addDescription("Host Name", property.getHost_name());
@@ -44,9 +45,15 @@ public class PropertyDescriptionStage extends Stage {
 		initModality(Modality.APPLICATION_MODAL);
 	}
 	
-	private void addDescription(String label, String description) {
-		gridPane.add(new Label(label + ":"), 0, row);
-		gridPane.add(new Label(description), 1, row);
+	private void addDescription(String name, String description) {
+		Label nameLabel = new Label(name + ":");
+		nameLabel.getStyleClass().add("name-label");
+		
+		Label descriptionLabel = new Label(description);
+		descriptionLabel.getStyleClass().add("description-label");
+		
+		gridPane.add(nameLabel, 0 , row);
+		gridPane.add(descriptionLabel, 1, row);
 		row++;
 	}
 	

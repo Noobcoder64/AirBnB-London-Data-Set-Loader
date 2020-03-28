@@ -108,3 +108,15 @@
 .property-row-box {
 	-fx-background-color: green;
 }
+
+#property-description-grid-pane {
+	-fx-background-color: red;
+}
+
+.name-label {
+	-fx-background-color: yellow;
+}
+
+.description-label {
+	-fx-background-color: orange;
+}
