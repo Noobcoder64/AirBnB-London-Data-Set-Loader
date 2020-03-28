@@ -1,5 +1,11 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
-import javafx.geometry.Pos;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -9,42 +15,75 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View extends Application {
-    
-    private Template t1, t2, t3, t4;
-    
+
+    private Stage stage;
+
+    private BorderPane root;
+
+    private Controller controller;
+
+    private List<Pane> panels;
+
+    private int panelIndex;
+
+    ChoiceBox<Integer> fromChoice;
+    ChoiceBox<Integer> toChoice;
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
+        this.stage = stage;
 
         BorderPane root = new BorderPane();
+        this.root = root;
 
+        controller = new Controller();
         HBox priceRangeBox = new HBox();
-        priceRangeBox.setId("price-range-box");  // <-- ADD AN ID (FOR A SINGLE COMPONENT : #)
-        priceRangeBox.setAlignment(Pos.CENTER_RIGHT);
+        priceRangeBox.setId("price-range-box");
+
+        int maxPrice = ((controller.getAllPriceStatistics().getMaxValue() + 99) / 100) * 100;
+        int minPrice = controller.getAllPriceStatistics().getMinValue() / 100 * 100;
+
+        ObservableList<Integer> observableList = FXCollections.observableArrayList();
+        for (int i = minPrice; i <= maxPrice; i += 100) {
+            observableList.add(i);
+        }
 
         Label fromLabel = new Label("From:");
-        ChoiceBox<Double> fromChoice = new ChoiceBox<>();
+        fromChoice = new ChoiceBox<>();
+        fromChoice.setItems(observableList);
 
         Label toLabel = new Label("To:");
-        ChoiceBox<Double> toChoice = new ChoiceBox<>();
+        toChoice = new ChoiceBox<>();
+        toChoice.setItems(observableList);
 
-        priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
+        Button goButton = new Button("Go");
+        goButton.setOnAction(this::processSelectedPriceRange);
 
+        priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice, goButton);
         root.setTop(priceRangeBox);
 
+        panels = new ArrayList<>();
+
+        panels.add(createPanel1());
+        panels.add(null);
+        panels.add(null);
+
         // Main content Pane.
-        Pane contentPane = createContentPane();
-        root.setCenter(contentPane);
+        root.setCenter(panels.get(0));
 
         HBox navigationBox = new HBox();
         navigationBox.setId("navigation-box");
 
         Button backButton = new Button("<");
+        backButton.setOnAction(this::previousPanel);
         Pane space = new Pane();
         Button forwardButton = new Button(">");
+        forwardButton.setOnAction(this::nextPanel);
 
         backButton.getStyleClass().add("navigation-button");    // <-- ADD A CLASS (FOR MANY COMPONENTS
         forwardButton.getStyleClass().add("navigation-button"); // <--              TO HAVE THE SAME STYLE)
@@ -54,35 +93,96 @@ public class View extends Application {
 
         root.setBottom(navigationBox);
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root);
         scene.getStylesheets().add("style.css");
 
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("London Property Marketlace");
+        //primaryStage.setResizable(false);
+        stage.setScene(scene);
+        stage.setTitle("London Property Marketlace");
 
-        primaryStage.show();
+        stage.show();
     }
 
-    // Create the pane and return the Pane.
-    // Do all work here.
-    private Pane createContentPane() {
+    // Panel 1
+    private Pane createPanel1() {
+        StackPane stackPane = new StackPane();
+        stackPane.setMinSize(500, 500);
+
+        return stackPane;
+    }
+
+    // Panel 2
+    private Pane createPanel2() {
         Pane pane = new Pane();
+
+        MapPane mapPane = new MapPane(controller.getBoroughs(), controller.getBoroughStatistics().getUpperQuartile(), controller.getBoroughStatistics().getLowerQuartile());
+
+        pane.getChildren().add(mapPane);
+        return pane;
+    }
+
+    // Panel 3
+    private Pane createPanel3() {
+        Pane pane = new Pane();
+
         GridPane gridPane = new GridPane();
+        //Creating VBox's to display the statistics
+        VBox v1 = createVBox("Number of Properties: ", String.valueOf(controller.getAvailableProperties()));
+        VBox v2 = createVBox("Total average reviews", String.valueOf(controller.getAverageReviews()));
+        VBox v3 = createVBox("Total Number of Home/Apartments ", String.valueOf(controller.getHomeApartments()));
+        VBox v4 = createVBox("Most expensive borough: ", String.valueOf(controller.getMostExpensiveBorough()));
+        VBox v5 = createVBox("Cheapest borough: ", String.valueOf(controller.getCheapestBorough()));
+        VBox v6 = createVBox("Most expensive property description: ", String.valueOf(controller.getMostExpensiveDescription()));
+        VBox v7 = createVBox("Cheapest property: ", String.valueOf(controller.getCheapestBoroughDescription()));
+        VBox v8 = createVBox("Most reviewed borough: ", String.valueOf(controller.getMostReviewedBorough()));
+        //Creating BorderPane using the Template class
+        //And adding the center VBox to change in button action
+        Template t1 = new Template(v1, v5, v1);
+        Template t2 = new Template(v3, v6, v3);
+        Template t3 = new Template(v2, v7, v2);
+        Template t4 = new Template(v4, v8, v4);
 
-        // Put all components in this pane.
-        t1 = new Template("Average Properties", "50");
-        t2 = new Template("Average Properties", "50");
-        t3 = new Template("Average Properties", "50");
-        t4 = new Template("Average Properties", "50");
-
+        //Laying the borderpane accordingly
         gridPane.add(t1.seeBorderPane(), 0, 0);
         gridPane.add(t2.seeBorderPane(), 0, 1);
         gridPane.add(t3.seeBorderPane(), 1, 0);
         gridPane.add(t4.seeBorderPane(), 1, 1);
-        
+
         pane.getChildren().add(gridPane);
         return pane;
+    }
+
+    public VBox createVBox(String title, String Context){
+        VBox centerView = new VBox();
+        Label LabelTitle = new Label(title);
+        Label statistics = new Label(Context);
+        centerView.getChildren().addAll(LabelTitle, statistics);
+        return centerView;
+    }
+
+    private void nextPanel(ActionEvent event) {
+        panelIndex = (panelIndex + 1 ) % panels.size();
+        changePanel();
+    }
+
+    private void previousPanel(ActionEvent event) {
+        panelIndex = (panels.size() + panelIndex - 1) % panels.size();
+        changePanel();
+    }
+
+    private void changePanel() {
+        root.setCenter(panels.get(panelIndex));
+        stage.sizeToScene();
+    }
+
+    private void processSelectedPriceRange(ActionEvent event) {
+        controller = new Controller();
+        controller.setStartPrice(fromChoice.getValue());
+        controller.setEndPrice(toChoice.getValue());
+        controller.processRange();
+        panels.set(1, createPanel2());
+        panels.set(2, createPanel3());
+        changePanel();
     }
 
     public static void main(String[] args) {

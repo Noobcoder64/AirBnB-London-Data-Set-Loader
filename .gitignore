@@ -3,3 +3,15 @@
 /View.class
 /View$Template.class
 /Template.class
+/Borough.class
+/BoroughPane.class
+/BoroughPropertiesWindow.class
+/Boroughs.class
+/Controller.class
+/HostNameComparator.class
+/MapPane.class
+/MinimumNightsComparator.class
+/PriceComparator.class
+/PropertyRow.class
+/ReviewsNumberComparator.class
+/StatisticCalculator.class

@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=BoroughPropertiesWindow
+comment0.text=\n\ Pane\ that\ displays\ the\ properties\ available\ for\ rental\ in\ a\ borough.\n\ A\ dropdown\ menu\ enables\ the\ sorting\ of\ the\ properties\ by\ host\ name,\ price,\ number\ of\ reviews\ and\ minimum\ number\ of\ nights.\n\ Clicking\ a\ property\ pops\ up\ a\ new\ window\ containing\ the\ description\ of\ that\ property.\n
+comment1.params=borough
+comment1.target=BoroughPropertiesWindow(Borough)
+comment2.params=event
+comment2.target=void\ sortProperties(javafx.event.ActionEvent)
+comment2.text=\n\ Sorts\ properties\ by\ the\ selected\ option\ in\ the\ dropdown\ menu\ (choice\ box).\n
+comment3.params=
+comment3.target=void\ showProperties()
+comment3.text=\n\ Displays\ the\ properties.\n
+numComments=4

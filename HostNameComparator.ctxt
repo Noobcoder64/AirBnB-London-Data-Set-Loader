@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=HostNameComparator
+comment0.text=\n\ Comparator\ to\ sort\ properties\ by\ their\ host\ name.\n
+comment1.params=property1\ property2
+comment1.target=int\ compare(AirbnbListing,\ AirbnbListing)
+comment1.text=\n\ Compare\ two\ properties\ by\ their\ host\ name\ lexicographically.\n
+comment2.params=
+comment2.target=java.lang.String\ toString()
+numComments=3

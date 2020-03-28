@@ -17,23 +17,21 @@ public class Template extends BorderPane
     /**
      * Constructor for objects of class Template
      */
-    public Template(String title, String Context)
+    public Template(VBox v1, VBox v2, VBox v3)
     {
+        layout.setCenter(v1);
         
         Button next = new Button(">");
         layout.setRight(next);
+        next.setOnAction(e -> layout.setCenter(v2));
         
         Button back = new Button("<");
         layout.setLeft(back);
-        
-        VBox centerView = new VBox();
-        Label LabelTitle = new Label(title);
-        Label statistics = new Label(Context);
-        centerView.getChildren().addAll(LabelTitle, statistics);
-        layout.setCenter(centerView);
+        back.setOnAction(e -> layout.setCenter(v3));
+                
         seeBorderPane();
     }
-    
+        
     public BorderPane seeBorderPane(){
         return layout;
     }

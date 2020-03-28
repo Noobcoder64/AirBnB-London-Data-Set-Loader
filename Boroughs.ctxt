@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Boroughs
+comment1.params=name\ column\ row
+comment1.target=Boroughs(java.lang.String,\ int,\ int)
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment3.params=
+comment3.target=int\ getColumn()
+comment4.params=
+comment4.target=int\ getRow()
+numComments=5

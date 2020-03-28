@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=BoroughPane
+comment0.text=\n\ Represents\ a\ borough\ in\ the\ form\ of\ an\ hexagonal\ button\ used\ for\ the\ map.\n\ Clicking\ the\ button\ pops\ up\ a\ new\ window\ containing\ the\ properties\ available\ in\ the\ borough.\n\ Hovering\ over\ the\ button\ flips\ it\ and\ the\ back\ displays\ the\ number\ of\ properties\ in\ the\ borough.\n\ \n\ @author\n\n
+comment1.params=displayName\ minWidth\ minHeight
+comment1.target=BoroughPane(java.lang.String,\ double,\ double)
+comment2.params=borough
+comment2.target=void\ setBorough(Borough)
+comment2.text=\n\ Set\ the\ borough\ to\ represent\ and\ enable\ the\ button.\n\ @param\ Borough\n
+comment3.params=color
+comment3.target=void\ setColor(java.lang.String)
+comment3.text=\n\ Sets\ the\ color\ of\ the\ border.\n\ @param\ Color\n
+comment4.params=event
+comment4.target=void\ showProperties(javafx.scene.input.MouseEvent)
+comment4.text=\n\ Pops\ up\ a\ new\ window\ containing\ the\ properties\ in\ the\ borough.\n
+comment5.params=event
+comment5.target=void\ flip(javafx.scene.input.MouseEvent)
+comment5.text=\n\ Flips\ the\ button\ horizontally\ and\ shows\ the\ front\ or\ the\ back\ accordingly.\n
+comment6.params=fromAngle\ toAngle
+comment6.target=javafx.animation.RotateTransition\ createRotator(double,\ double)
+comment6.text=\n\ Create\ a\ RotateTransition\ to\ be\ used\ when\ flipping.\n\ @param\ fromAngle\ Angle\ to\ start\ from.\n\ @param\ toAngle\ Angle\ to\ end\ to.\n
+numComments=7
