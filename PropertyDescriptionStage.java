@@ -4,6 +4,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Stage that displays the descriptions of a property.
+ * 
+ * @author
+ *
+ */
 public class PropertyDescriptionStage extends Stage {
 	
 	private GridPane gridPane;
@@ -45,6 +51,12 @@ public class PropertyDescriptionStage extends Stage {
 		initModality(Modality.APPLICATION_MODAL);
 	}
 	
+	/**
+	 * Adds a description to the property.
+	 * 
+	 * @param name Information that the description gives
+	 * @param description Description of the property
+	 */
 	private void addDescription(String name, String description) {
 		Label nameLabel = new Label(name + ":");
 		nameLabel.getStyleClass().add("name-label");
