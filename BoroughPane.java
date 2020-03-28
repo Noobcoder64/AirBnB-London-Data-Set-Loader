@@ -35,6 +35,8 @@ public class BoroughPane extends StackPane {
 	private boolean showFront;	// Boolean to decide whether to show the front or the back.
 	
 	public BoroughPane(String displayName, double minWidth, double minHeight) {
+		getStyleClass().add("borough-pane");
+		
 		this.displayName = displayName;
 		this.showFront = true;
 		
@@ -77,7 +79,7 @@ public class BoroughPane extends StackPane {
 	 * Pops up a new window containing the properties in the borough.
 	 */
 	private void showProperties(MouseEvent event) {
-		BoroughPropertiesWindow boroughPropertiesWindow = new BoroughPropertiesWindow(borough);
+		BoroughPropertiesStage boroughPropertiesWindow = new BoroughPropertiesStage(borough);
 		boroughPropertiesWindow.show();
 	}
 	

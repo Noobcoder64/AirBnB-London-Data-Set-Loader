@@ -22,6 +22,8 @@ public class MapPane extends GridPane {
 	// Prices between the upper and lower quartile will have a yellow border.
 	
 	public MapPane(Map<String,Borough> boroughs, int upperQuartile, int lowerQuartile) {
+		getStyleClass().add("map-pane");
+		
 		this.boroughs = boroughs;
 		this.upperQuartile = upperQuartile;
 		this.lowerQuartile = lowerQuartile;
@@ -93,7 +95,6 @@ public class MapPane extends GridPane {
 	 */
 	private void addBorough(String name, String displayName, int offset, int column, int row) {
 		BoroughPane boroughPane = new BoroughPane(displayName, 70, 80);
-		boroughPane.getStyleClass().add("borough-pane");
 		
 		if (boroughs.containsKey(name)) {
 			Borough borough = boroughs.get(name);

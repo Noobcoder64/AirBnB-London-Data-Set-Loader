@@ -63,7 +63,7 @@ public class AirbnbDataLoader {
                 priceStatistics.addValue(price);
             }
             
-        } catch(IOException | URISyntaxException e){
+        } catch(IOException | URISyntaxException e) {
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }

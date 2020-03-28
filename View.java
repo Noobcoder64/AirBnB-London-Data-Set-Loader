@@ -116,7 +116,7 @@ public class View extends Application {
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("style.css");
 		
-		//primaryStage.setResizable(false);
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.setTitle("London Property Marketlace");
 
@@ -136,7 +136,7 @@ public class View extends Application {
 		Pane pane = new Pane();
 
 		MapPane mapPane = new MapPane(controller.getBoroughs(), controller.getBoroughStatistics().getUpperQuartile(), controller.getBoroughStatistics().getLowerQuartile());
-	
+		
 		pane.getChildren().add(mapPane);
 		return pane;
 	}

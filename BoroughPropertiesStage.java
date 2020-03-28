@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  * A dropdown menu enables the sorting of the properties by host name, price, number of reviews and minimum number of nights.
  * Clicking a property pops up a new window containing the description of that property.
  */
-public class BoroughPropertiesWindow extends Stage {
+public class BoroughPropertiesStage extends Stage {
 	
 	private List<AirbnbListing> properties;
 	
@@ -29,7 +29,7 @@ public class BoroughPropertiesWindow extends Stage {
 	
 	private Pane bodyPane;
 	
-	public BoroughPropertiesWindow(Borough borough) {
+	public BoroughPropertiesStage(Borough borough) {
 		this.properties = new ArrayList<>(borough.getProperties());
 		
 		VBox root = new VBox();
@@ -53,6 +53,7 @@ public class BoroughPropertiesWindow extends Stage {
 	 */
 	private Pane createSortBox() {
 		HBox sortBox = new HBox();
+		sortBox.setId("sort-box");
 		
 		Label sortLabel = new Label("Sort By:");
 		sortChoice = new ChoiceBox<>();
@@ -76,8 +77,10 @@ public class BoroughPropertiesWindow extends Stage {
 	 */
 	private Pane createTable() {
 		VBox table = new VBox();
-
+		table.getStyleClass().add("table");
+		
 		NormalRow headerPane = new NormalRow();
+		headerPane.getStyleClass().add("header-pane");
 		headerPane.addColumn("Host name");
 		headerPane.addColumn("Price");
 		headerPane.addColumn("Number of reviews");
@@ -91,6 +94,7 @@ public class BoroughPropertiesWindow extends Stage {
 		scrollPane.setFitToWidth(true);
 		
 		bodyPane = new VBox();
+		headerPane.getStyleClass().add("body-pane");
 		
 		showProperties();
 		
