@@ -4,48 +4,88 @@
 }
 
 #price-range-box {
-	-fx-background-color: white;
-	-fx-spacing: 10.0px;
+    -fx-alignment: top-right;
+    -fx-padding: 4px;
+    -fx-background-color: aliceblue;
+    -fx-spacing: 10.0px;
 }
 
 #price-range-box > .label {
-	-fx-background-color: blue;
+    -fx-background-color:aliceblue;
+    
 }
 
 #price-range-box > .choice-box {
-	-fx-background-color: red;
+    -fx-background-color: ghostwhite;
+    -fx-font-style: italic;
+    -fx-border-radius: 7.0px;
+    -fx-border-color: #D0D0D0;
+}
+
+#price-range-box > .choice-box:hover {
+    -fx-background-color: snow;
+    -fx-font-style: italic;
+    -fx-border-radius: 7.0px;
+    -fx-border-color: gainsboro;
 }
 
 #navigation-box {
-	-fx-background-color: white;
-	-fx-border-top-style: #D0D0D0;
+    -fx-padding: 4.0px;
+    -fx-background-color: white;
+    -fx-border-top-style: #D0D0D0;
 }
 
 .navigation-button {
-	-fx-font-size: 13.0px;
+    -fx-font-size: 15.0px;
+    -fx-font-style: italic;
     -fx-background-color: snow;
-    -fx-border-radius: 4.0px;
-    -fx-border-color: #D0D0D0;
-    -fx-pref-width: 40.0px;
+    -fx-border-radius: 5.0px;
+    -fx-border-color:  #D0D0D0;
+    -fx-pref-width: 50.0px;
 }
 
 .navigation-button:hover {
-    -fx-font-size: 14.0px;
+    -fx-font-size: 15.0px;
     -fx-font-style: italic;
+    -fx-border-radius: 5.0px;
     -fx-background-color: ghostwhite;
     -fx-border-color: #D0D0D0;
-    -fx-pref-width: 42.0px;
+    -fx-pref-width: 50.0px;
+}
+
+.next-Button{ 
+    -fx-alignment: top-left;
+    -fx-font-size: 15.0px;
+    -fx-font-style: italic;
+    -fx-background-color: snow;
+    -fx-border-radius: 5.0px;
+    -fx-border-color:  #D0D0D0;
+
+}
+.back-Button{ 
+    -fx-alignment: top-right;
+    -fx-font-size: 15.0px;
+    -fx-font-style: italic;
+    -fx-background-color: snow;
+    -fx-border-radius: 5.0px;
+    -fx-border-color:  #D0D0D0;
 }
 
 .map-pane {
-	
+	 -fx-background-color: white;
 }
 
 .borough-pane {
+    -fx-background-color: white;
 }
 
 .borough-pane > .button {
-	 -fx-background-color: orange;
+	 -fx-background-color: white;
+}
+
+.section-pane {
+    -fx-padding: 5 5 10 105;   
+    -fx-background-color: white;
 }
 
 #sort-box {
