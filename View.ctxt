@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=View
+comment1.params=stage
+comment1.target=void\ start(javafx.stage.Stage)
+comment10.params=event
+comment10.target=void\ processSelectedPriceRange(javafx.event.ActionEvent)
+comment11.params=args
+comment11.target=void\ main(java.lang.String[])
+comment2.params=
+comment2.target=javafx.scene.layout.Pane\ createPanel1()
+comment3.params=
+comment3.target=javafx.scene.layout.Pane\ createPanel2()
+comment4.params=
+comment4.target=javafx.scene.layout.Pane\ createPanel3()
+comment5.params=Context
+comment5.target=javafx.scene.layout.VBox\ createVBox(java.lang.String)
+comment6.params=v1\ v2
+comment6.target=javafx.scene.layout.BorderPane\ createBorderPane(javafx.scene.layout.VBox,\ javafx.scene.layout.VBox)
+comment7.params=event
+comment7.target=void\ nextPanel(javafx.event.ActionEvent)
+comment8.params=event
+comment8.target=void\ previousPanel(javafx.event.ActionEvent)
+comment9.params=
+comment9.target=void\ changePanel()
+numComments=12
