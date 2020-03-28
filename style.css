@@ -1,28 +1,28 @@
 .root {
-	-fx-padding: 8.0px;
-	-fx-background-color: white;
+    -fx-padding: 8.0px;
+    -fx-background-color: white;
 }
 
 #price-range-box {
-	-fx-background-color: white;
-	-fx-spacing: 10.0px;
+    -fx-background-color: white;
+    -fx-spacing: 10.0px;
 }
 
 #price-range-box > .label {
-	-fx-background-color: blue;
+    -fx-background-color: blue;
 }
 
 #price-range-box > .choice-box {
-	-fx-background-color: red;
+    -fx-background-color: red;
 }
 
 #navigation-box {
-	-fx-background-color: white;
-	-fx-border-top-style: #D0D0D0;
+    -fx-background-color: white;
+    -fx-border-top-style: #D0D0D0;
 }
 
 .navigation-button {
-	-fx-font-size: 13.0px;
+    -fx-font-size: 13.0px;
     -fx-background-color: snow;
     -fx-border-radius: 4.0px;
     -fx-border-color: #D0D0D0;
@@ -41,5 +41,20 @@
 }
 
 .borough-pane > .button {
-	 -fx-background-color: orange;
+     -fx-background-color: orange;
+}
+
+#StatisticVBox > .label{
+    -fx-text-alignment: center;
+    -fx-font-size: 11pt;
+    -fx-alignment: center;
+    -fx-padding: 40;
+    -fx-border-color: black;
+}
+
+#StatisticBorderPane > .button:hover {
+	-fx-background-color: #0000ff;
+	-fx-border-color: #000080;
+	-fx-border-width: 2;
+	-fx-text-fill: white;
 }

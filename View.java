@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +17,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.geometry.Insets;
+//import javafx.geometry.Pos;
 
 public class View extends Application {
 
@@ -126,38 +127,62 @@ public class View extends Application {
         Pane pane = new Pane();
 
         GridPane gridPane = new GridPane();
-        //Creating VBox's to display the statistics
-        VBox v1 = createVBox("Number of Properties: ", String.valueOf(controller.getAvailableProperties()));
-        VBox v2 = createVBox("Total average reviews", String.valueOf(controller.getAverageReviews()));
-        VBox v3 = createVBox("Total Number of Home/Apartments ", String.valueOf(controller.getHomeApartments()));
-        VBox v4 = createVBox("Most expensive borough: ", String.valueOf(controller.getMostExpensiveBorough()));
-        VBox v5 = createVBox("Cheapest borough: ", String.valueOf(controller.getCheapestBorough()));
-        VBox v6 = createVBox("Most expensive property description: ", String.valueOf(controller.getMostExpensiveDescription()));
-        VBox v7 = createVBox("Cheapest property: ", String.valueOf(controller.getCheapestBoroughDescription()));
-        VBox v8 = createVBox("Most reviewed borough: ", String.valueOf(controller.getMostReviewedBorough()));
-        //Creating BorderPane using the Template class
-        //And adding the center VBox to change in button action
-        Template t1 = new Template(v1, v5, v1);
-        Template t2 = new Template(v3, v6, v3);
-        Template t3 = new Template(v2, v7, v2);
-        Template t4 = new Template(v4, v8, v4);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setId("gridPane");
+        
+        gridPane.setVgap(10);
+        gridPane.setHgap(10);
 
+        //Creating VBox's to display the statistics
+        VBox v1 = createVBox("Number of Properties\n\n"+ String.valueOf(controller.getAvailableProperties()));
+        VBox v2 = createVBox("Total average reviews\n\n"+ String.valueOf(controller.getAverageReviews()));
+        VBox v3 = createVBox("Total Number of Home/Apartments\n\n"+ String.valueOf(controller.getHomeApartments()));
+        VBox v4 = createVBox("Most expensive borough\n\n"+ String.valueOf(controller.getMostExpensiveBorough()));
+        VBox v5 = createVBox("Cheapest borough\n\n"+ String.valueOf(controller.getCheapestBorough()));
+        VBox v6 = createVBox("Most expensive property description\n\n"+ String.valueOf(controller.getMostExpensiveDescription() + "\n\n Host Name: " + controller.getExpensiveHost()));
+        VBox v7 = createVBox("Cheapest property description\n\n"+ String.valueOf(controller.getCheapestBoroughDescription()) + "\n\n Host Name: " + controller.getCheapestHost());
+        VBox v8 = createVBox("Most reviewed borough\n\n"+ String.valueOf(controller.getMostReviewedBorough()));
+        
+        //Creating BorderPane and adding the VBox as parameter to change in button action
+        BorderPane b1 = createBorderPane(v1, v5);
+        BorderPane b2 = createBorderPane(v3, v6);
+        BorderPane b3 = createBorderPane(v2, v7);
+        BorderPane b4 = createBorderPane(v4, v8);
+        
+        //gridPane.setAlignment(Pos.CENTER);
         //Laying the borderpane accordingly
-        gridPane.add(t1.seeBorderPane(), 0, 0);
-        gridPane.add(t2.seeBorderPane(), 0, 1);
-        gridPane.add(t3.seeBorderPane(), 1, 0);
-        gridPane.add(t4.seeBorderPane(), 1, 1);
+        gridPane.add(b1, 0, 0);
+        gridPane.add(b2, 0, 1);
+        gridPane.add(b3, 1, 0);
+        gridPane.add(b4, 1, 1);
 
         pane.getChildren().add(gridPane);
+        pane.setMinSize(900, 400);
         return pane;
     }
 
-    public VBox createVBox(String title, String Context){
+    public VBox createVBox(String Context){
         VBox centerView = new VBox();
-        Label LabelTitle = new Label(title);
         Label statistics = new Label(Context);
-        centerView.getChildren().addAll(LabelTitle, statistics);
+        statistics.setPrefSize(400, 200);
+        centerView.getChildren().add(statistics);
+        centerView.setId("StatisticVBox");
         return centerView;
+    }
+
+    public BorderPane createBorderPane(VBox v1, VBox v2){
+        BorderPane layout = new BorderPane();
+        layout.setCenter(v1);
+        Button next = new Button(">");
+        next.setMinSize(50, 200);
+        layout.setRight(next);
+        next.setOnAction(e -> layout.setCenter(v2));
+        Button back = new Button("<");
+        back.setMinSize(50, 200);
+        layout.setLeft(back);
+        back.setOnAction(e -> layout.setCenter(v1));
+        layout.setId("StatisticBorderPane");
+        return layout;
     }
 
     private void nextPanel(ActionEvent event) {

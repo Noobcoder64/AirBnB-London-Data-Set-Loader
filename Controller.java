@@ -24,7 +24,14 @@ public class Controller {
 
     private int averageReviews;
     private int TotNumberOfHomeOrApt;
-    private String mostExpensiveBorough, cheapestBorough, mostReviewedBorough, cheapestBoroughDescription, mostExpensiveName;
+    private String mostExpensiveBorough;
+    private String cheapestBorough;
+    private String mostReviewedBorough;
+    private String cheapestBoroughDescription;
+    private String mostExpensiveName;
+    private String expHostName;
+    private String cheapHostName;
+    
     private double reviewedNumber;
 
     public Controller() {
@@ -76,11 +83,13 @@ public class Controller {
             {
                 cheapestBorough = property.getNeighbourhood();
                 cheapestBoroughDescription = property.getName();
+                cheapHostName = property.getHost_name();
             }
             if(sortedlist.get(sortedlist.size() - 1) == (property.getPrice() * property.getMinimumNights()))
             {
                 mostExpensiveBorough = property.getNeighbourhood();
                 mostExpensiveName = property.getName();
+                expHostName = property.getHost_name();
             }
         }
 
@@ -142,6 +151,14 @@ public class Controller {
 
     public String getMostReviewedBorough() {
         return mostReviewedBorough;
+    }
+    
+    public String getCheapestHost() {
+        return cheapHostName;
+    }
+
+    public String getExpensiveHost() {
+        return expHostName;
     }
 
 }
