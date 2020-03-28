@@ -15,11 +15,13 @@ import javafx.stage.Stage;
  * 
  * @author
  */
-public class PropertyRow extends NormalRow {
+public class PropertyRowBox extends NormalRowBox {
 
 	private AirbnbListing property;
 	
-	public PropertyRow(AirbnbListing property) {
+	public PropertyRowBox(AirbnbListing property) {
+		getStyleClass().add("property-row-box");
+		
 		this.property = property;
 		
 		addColumn(property.getHost_name());

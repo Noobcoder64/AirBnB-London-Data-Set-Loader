@@ -41,6 +41,7 @@ public class BoroughPropertiesStage extends Stage {
 		root.getChildren().add(table);
 		
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add("style.css");
 		
 		setResizable(false);
 		setScene(scene);
@@ -76,17 +77,17 @@ public class BoroughPropertiesStage extends Stage {
 	 * Creates a table that allows the properties for rental in the borough to be displayed.
 	 */
 	private Pane createTable() {
-		VBox table = new VBox();
-		table.getStyleClass().add("table");
+		VBox tableBox = new VBox();
+		tableBox.setId("table-box");
 		
-		NormalRow headerPane = new NormalRow();
+		NormalRowBox headerPane = new NormalRowBox();
 		headerPane.getStyleClass().add("header-pane");
 		headerPane.addColumn("Host name");
 		headerPane.addColumn("Price");
 		headerPane.addColumn("Number of reviews");
 		headerPane.addColumn("Minimum number of nights");
 		
-		table.getChildren().add(headerPane);
+		tableBox.getChildren().add(headerPane);
 		
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setPrefHeight(500);
@@ -100,8 +101,8 @@ public class BoroughPropertiesStage extends Stage {
 		
 		scrollPane.setContent(bodyPane);
 		
-		table.getChildren().add(scrollPane);
-		return table;
+		tableBox.getChildren().add(scrollPane);
+		return tableBox;
 	}
 	
 	/**
@@ -121,7 +122,7 @@ public class BoroughPropertiesStage extends Stage {
 		bodyPane.getChildren().clear();
 		
 		for (AirbnbListing property : properties) {
-			PropertyRow propertyRow = new PropertyRow(property);
+			PropertyRowBox propertyRow = new PropertyRowBox(property);
 			bodyPane.getChildren().add(propertyRow);
 		}
 	}

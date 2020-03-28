@@ -7,7 +7,7 @@ import javafx.scene.layout.Priority;
  * 
  * @author
  */
-public class NormalRow extends HBox {
+public class NormalRowBox extends HBox {
 	
 	/**
 	 * Adds a column to the row.

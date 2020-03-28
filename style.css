@@ -37,9 +37,34 @@
     -fx-pref-width: 42.0px;
 }
 
-.boroug-pane {
+.map-pane {
+	
+}
+
+.borough-pane {
 }
 
 .borough-pane > .button {
 	 -fx-background-color: orange;
+}
+
+#sort-box {
+	-fx-background-color: red;
+}
+
+#table-box {
+	-fx-background-color: blue;
+	-fx-padding: 10px;
+}
+
+.header-pane {
+	-fx-background-color: orange;
+}
+
+.body-pane {
+	-fx-background-color: yellow;
+}
+
+.property-row-box {
+	-fx-background-color: green;
 }

@@ -7,11 +7,10 @@ import javafx.stage.Stage;
 public class PropertyDescriptionStage extends Stage {
 	
 	private int row = 0;
-	private GridPane root;
+	private GridPane gridPane;
 	
 	public PropertyDescriptionStage(AirbnbListing property) {
-		root = new GridPane();
-		root.getStyleClass().add("property-description-pane");
+		gridPane = new GridPane();
 		
 		addDescription("Name", property.getName());
 		addDescription("Host Name", property.getHost_name());
@@ -36,7 +35,8 @@ public class PropertyDescriptionStage extends Stage {
 		
 		addDescription("Availability", String.valueOf(property.getAvailability365()));
 		
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(gridPane);
+		scene.getStylesheets().add("style.css");
 		
 		setResizable(false);
 		setScene(scene);
@@ -45,8 +45,8 @@ public class PropertyDescriptionStage extends Stage {
 	}
 	
 	private void addDescription(String label, String description) {
-		root.add(new Label(label + ":"), 0, row);
-		root.add(new Label(description), 1, row);
+		gridPane.add(new Label(label + ":"), 0, row);
+		gridPane.add(new Label(description), 1, row);
 		row++;
 	}
 	
