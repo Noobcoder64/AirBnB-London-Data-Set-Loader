@@ -7,8 +7,6 @@ import java.util.Collections;
 
 public class Controller {
 
-    AirbnbDataLoader airbnbDataLoader;
-
     private List<AirbnbListing> allProperties;
 
     private List<AirbnbListing> properties;
@@ -32,15 +30,15 @@ public class Controller {
     
     private double reviewedNumber;
 
-    public Controller() {
-        airbnbDataLoader = new AirbnbDataLoader();
-        airbnbDataLoader.load("airbnb-london.csv");
+    public Controller(List<AirbnbListing> properties) {
+    	allProperties = properties;
         boroughs = new HashMap<>();
-
-        allProperties = airbnbDataLoader.getProperties();
     }
 
     public void processRange() {
+    	averageReviews = 0;
+        TotNumberOfHomeOrApt = 0;
+    	
         this.properties = allProperties.stream().filter(property -> property.getPrice() >= startPrice && property.getPrice() <= endPrice).collect(Collectors.toList());
 
         properties.stream().forEach(property -> {
@@ -110,10 +108,6 @@ public class Controller {
 
     public Map<String, Borough> getBoroughs() {
         return boroughs;
-    }
-
-    public StatisticCalculator getAllPriceStatistics() {
-        return airbnbDataLoader.getPriceStatistics();
     }
 
     public StatisticCalculator getBoroughStatistics() {

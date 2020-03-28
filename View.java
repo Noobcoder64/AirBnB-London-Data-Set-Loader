@@ -28,6 +28,8 @@ public class View extends Application {
 	
 	private BorderPane root;
 	
+	private AirbnbDataLoader airbnbDataLoader;
+	
 	private Controller controller;
 
 	private List<Pane> panels;
@@ -46,6 +48,13 @@ public class View extends Application {
 	
 	private Stage panel3;
 	
+	public View() {
+		airbnbDataLoader = new AirbnbDataLoader();
+        airbnbDataLoader.load("airbnb-london.csv");
+		
+		isSelected = new boolean[2];
+	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
@@ -53,15 +62,11 @@ public class View extends Application {
 		BorderPane root = new BorderPane();
 		this.root = root;
 		
-		controller = new Controller();
-		
-		isSelected = new boolean[2];
-		
 		HBox priceRangeBox = new HBox();
 		priceRangeBox.setId("price-range-box");
 		
-		int maxPrice = ((controller.getAllPriceStatistics().getMaxValue() + 99) / 100) * 100;
-		int minPrice = controller.getAllPriceStatistics().getMinValue() / 100 * 100;
+		int maxPrice = ((airbnbDataLoader.getPriceStatistics().getMaxValue() + 99) / 100) * 100;
+		int minPrice = airbnbDataLoader.getPriceStatistics().getMinValue() / 100 * 100;
 		
 		ObservableList<Integer> observableList = FXCollections.observableArrayList();
 		for (int i = minPrice; i <= maxPrice; i += 100) {
@@ -282,6 +287,7 @@ public class View extends Application {
 	}
 	
 	private void processSelectedPriceRange() {
+		controller = new Controller(airbnbDataLoader.getProperties());
 		controller.setStartPrice(fromChoice.getValue());
 		controller.setEndPrice(toChoice.getValue());
 		controller.processRange();
