@@ -7,11 +7,11 @@ import java.util.List;
  */ 
 public class Borough {
 
-	private String name;	// Name of the borough.
+	private String name;
 	
-	private List<AirbnbListing> properties;	// Properties in this borough.
+	private List<AirbnbListing> properties;
 	
-	private StatisticCalculator priceStatistics;	// Statistics derived from the prices of the properties in this borough.
+	private StatisticCalculator priceStatistics;	// Statistics derived from the prices and minimum nights of a property.
 	
 	public Borough(String name) {
 		this.name = name;

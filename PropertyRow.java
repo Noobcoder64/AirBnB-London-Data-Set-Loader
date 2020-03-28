@@ -8,7 +8,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class PropertyRow extends HBox {
+/**
+ * Represents a row in a table.
+ * Also represents a property.
+ * Clicking the row pops up a new window containing the description of the property.
+ * 
+ * @author
+ */
+public class PropertyRow extends NormalRow {
 
 	private AirbnbListing property;
 	
@@ -23,14 +30,9 @@ public class PropertyRow extends HBox {
 		setOnMouseClicked(this::showPropertyDescription);
 	}
 	
-	private void addColumn(String text) {
-		Label label = new Label(text);
-		//label.setStyle("-fx-border-color: red");
-		HBox.setHgrow(label, Priority.ALWAYS);
-		label.setMinWidth(200);
-		getChildren().add(label);
-	}
-	
+	/**
+	 * Pops up a new window containing the description of a property.
+	 */
 	private void showPropertyDescription(MouseEvent event) {
 		GridPane root = new GridPane();
 		

@@ -15,7 +15,7 @@ import javafx.scene.layout.RowConstraints;
  */
 public class MapPane extends GridPane {
 	
-	private Map<String,Borough> boroughs;	// Boroughs to be displayed in the map.
+	private Map<String,Borough> boroughs;
 	
 	private int upperQuartile;	// Prices above this value will have a red border.
 	private int lowerQuartile;	// Prices below this value will have a green border.
@@ -28,7 +28,6 @@ public class MapPane extends GridPane {
 		
 		setVgap(-20);
 		setHgap(2);
-		//setGridLinesVisible(true);
 		
 		for (int i = 0; i < 7 * 2; i++) {
 			ColumnConstraints columnConstraints = new ColumnConstraints(40);
@@ -84,7 +83,7 @@ public class MapPane extends GridPane {
 	}
 	
 	/**
-	 * Add a borough in the map
+	 * Adds a borough in the map
 	 * 
 	 * @param name Name of the borough.
 	 * @param displayName Name to be displayed on the button.
@@ -104,7 +103,6 @@ public class MapPane extends GridPane {
 			int numberOfProperties = borough.getNumberOfProperties();
 			
 			String color;
-			
 			if (numberOfProperties > upperQuartile) {
 				color = "red";
 			} else if (numberOfProperties < lowerQuartile) {

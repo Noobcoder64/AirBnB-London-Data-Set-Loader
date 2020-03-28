@@ -40,11 +40,11 @@ public class BoroughPane extends StackPane {
 		
 		button = new Button(displayName);
 		button.setDisable(true);
-		getChildren().add(button);
-		
 		button.setMinSize(minWidth, minHeight);
 		button.setShape(hexagon);
 		button.setPickOnBounds(false);
+		
+		getChildren().add(button);
 		
 		setStyle("-fx-background-color: grey");
 		setMinSize(minWidth + 10, minHeight + 10);
@@ -78,6 +78,7 @@ public class BoroughPane extends StackPane {
 	 */
 	private void showProperties(MouseEvent event) {
 		BoroughPropertiesWindow boroughPropertiesWindow = new BoroughPropertiesWindow(borough);
+		boroughPropertiesWindow.show();
 	}
 	
 	/**

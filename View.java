@@ -1,12 +1,16 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -34,6 +38,11 @@ public class View extends Application {
 	ChoiceBox<Integer> fromChoice;
 	ChoiceBox<Integer> toChoice;
 	
+	private boolean[] isSelected;
+	
+	private Button backButton;
+	private Button forwardButton;
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
@@ -42,6 +51,8 @@ public class View extends Application {
 		this.root = root;
 		
 		controller = new Controller();
+		
+		isSelected = new boolean[2];
 		
 		HBox priceRangeBox = new HBox();
 		priceRangeBox.setId("price-range-box");
@@ -57,15 +68,21 @@ public class View extends Application {
 		Label fromLabel = new Label("From:");
 		fromChoice = new ChoiceBox<>();
 		fromChoice.setItems(observableList);
+		fromChoice.setOnAction(e -> {
+			isSelected[0] = true;
+			validateInput();
+		});
+		
 		
 		Label toLabel = new Label("To:");
 		toChoice = new ChoiceBox<>();
 		toChoice.setItems(observableList);
-		
-		Button goButton = new Button("Go");
-		goButton.setOnAction(this::processSelectedPriceRange);
-		
-		priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice, goButton);
+		toChoice.setOnAction(e -> {
+			isSelected[1] = true;
+			validateInput();
+		});
+
+		priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
 		root.setTop(priceRangeBox);
 
 		panels = new ArrayList<>();
@@ -80,11 +97,13 @@ public class View extends Application {
 		HBox navigationBox = new HBox();
 		navigationBox.setId("navigation-box");
 		
-		Button backButton = new Button("<");
+		backButton = new Button("<");
 		backButton.setOnAction(this::previousPanel);
+		backButton.setDisable(true);
 		Pane space = new Pane();
-		Button forwardButton = new Button(">");
+		forwardButton = new Button(">");
 		forwardButton.setOnAction(this::nextPanel);
+		forwardButton.setDisable(true);
 		
 		backButton.getStyleClass().add("navigation-button");	// <-- ADD A CLASS (FOR MANY COMPONENTS
 		forwardButton.getStyleClass().add("navigation-button");	// <-- 				TO HAVE THE SAME STYLE)
@@ -164,13 +183,33 @@ public class View extends Application {
 		stage.sizeToScene();
 	}
 	
-	private void processSelectedPriceRange(ActionEvent event) {
+	private void validateInput() {
+		if (!isSelected[0] || !isSelected[1]) return;
+		
+		if (fromChoice.getValue() >= toChoice.getValue()) {
+			showInvalidRangeAlert();
+		} else {
+			backButton.setDisable(false);
+			forwardButton.setDisable(false);
+			processSelectedPriceRange();
+		}
+	}
+	
+	private void processSelectedPriceRange() {
 		controller.setStartPrice(fromChoice.getValue());
 		controller.setEndPrice(toChoice.getValue());
 		controller.processRange();
 		panels.set(1, createPanel2());
 		panels.set(2, createPanel3());
 		changePanel();
+	}
+	
+	private void showInvalidRangeAlert() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Invalid");
+		alert.setHeaderText(null);
+		alert.setContentText("Please input a valid range");
+		alert.showAndWait();
 	}
 	
 	public static void main(String[] args) {
