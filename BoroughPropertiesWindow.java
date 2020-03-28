@@ -141,8 +141,8 @@ public class BoroughPropertiesWindow extends Pane {
 		bodyPane.getChildren().clear();
 		
 		for (AirbnbListing property : properties) {
-			PropertyRow propertyRow = new PropertyRow(property);
-			bodyPane.getChildren().add(propertyRow);
+			PropertyRowBox propertyRowBox = new PropertyRowBox(property);
+			bodyPane.getChildren().add(propertyRowBox);
 		}
 	}
 	
