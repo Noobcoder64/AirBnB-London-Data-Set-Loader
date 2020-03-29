@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=PropertyRowBox
+comment0.text=\n\ Represents\ a\ row\ in\ a\ table.\n\ Also\ represents\ a\ property.\n\ Clicking\ the\ row\ pops\ up\ a\ new\ window\ containing\ the\ description\ of\ the\ property.\n\ \n\ @author\n
+comment1.params=property
+comment1.target=PropertyRowBox(AirbnbListing)
+comment2.params=event
+comment2.target=void\ showPropertyDescription(javafx.scene.input.MouseEvent)
+comment2.text=\n\ Pops\ up\ a\ new\ window\ containing\ the\ description\ of\ a\ property.\n
+numComments=3

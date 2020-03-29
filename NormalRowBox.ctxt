@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=NormalRowBox
+comment0.text=\n\ Represents\ a\ row\ in\ a\ table.\n\ \n\ @author\n
+comment1.params=text
+comment1.target=void\ addColumn(java.lang.String)
+comment1.text=\n\ Adds\ a\ column\ to\ the\ row.\n\ @param\ text\ \n
+numComments=2

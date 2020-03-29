@@ -113,44 +113,74 @@ public class Controller {
         return boroughStatistics;
     }
 
+    /**
+     * Accessor Method to get number of properties available in selected price range
+     */
     public int getAvailableProperties() {
-        return properties.size();   //Accessor Method to get number of properties available in selected price range
+        return properties.size();
     }
 
+    /**
+     * Accessor Method to get average reviews in the selected price range
+     */
     public int getAverageReviews() {
-        return averageReviews;  //Accessor Method to get average reviews in the selected price range
+        return averageReviews;
     }
 
+    /**
+     * Accessor Method to get total number of Home/Appartment type
+     */
     public int getHomeApartments() {
-        return TotNumberOfHomeOrApt;    //Accessor Method to get total number of Home/Appartment type
+        return TotNumberOfHomeOrApt;
     }
 
+    /**
+     * Accessor Method to get Borough with most expensive price
+     */
     public String getMostExpensiveBorough() {
-        return mostExpensiveBorough;    //Accessor Method to get Borough with most expensive price
+        return mostExpensiveBorough;
     }
 
+    /**
+     * Accessor Method to get Borough with cheapest price
+     */
     public String getCheapestBorough() {
-        return cheapestBorough; //Accessor Method to get Borough with cheapest price
+        return cheapestBorough;
     }
 
+    /**
+     * Accessor method to get Name/Property Description of the most expensive price
+     */
     public String getMostExpensiveDescription() {
-        return mostExpensiveName;   //Accessor method to get Name/Property Description of the most expensive price
+        return mostExpensiveName;
     }
 
+    /**
+     * Accessor method to get Name/Property Description of the cheapest price
+     */
     public String getCheapestBoroughDescription() {
-        return cheapestBoroughDescription;  //Accessor method to get Name/Property Description of the cheapest price
+        return cheapestBoroughDescription;
     }
 
+    /**
+     * Accessor Method to get Borough with most reviewed
+     */
     public String getMostReviewedBorough() {
-        return mostReviewedBorough; //Accessor Method to get Borough with most reviewed
+        return mostReviewedBorough;
     }
     
+    /**
+     * Accessor Method to get Host Name with cheapest price
+     */
     public String getCheapestHost() {
-        return cheapHostName;   //Accessor Method to get Host Name with cheapest price
+        return cheapHostName;
     }
 
+    /**
+     * Accessor Method to get Host Name with most expensive price
+     */
     public String getExpensiveHost() {
-        return expHostName; //Accessor Method to get Host Name with most expensive price
+        return expHostName;
     }
 
 }

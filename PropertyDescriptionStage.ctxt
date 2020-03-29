@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=PropertyDescriptionStage
+comment0.text=\n\ Stage\ that\ displays\ the\ descriptions\ of\ a\ property.\n\ \n\ @author\n\n
+comment1.params=property
+comment1.target=PropertyDescriptionStage(AirbnbListing)
+comment2.params=name\ description
+comment2.target=void\ addDescription(java.lang.String,\ java.lang.String)
+comment2.text=\n\ Adds\ a\ description\ to\ the\ property.\n\ \n\ @param\ name\ Information\ that\ the\ description\ gives\n\ @param\ description\ Description\ of\ the\ property\n
+numComments=3
