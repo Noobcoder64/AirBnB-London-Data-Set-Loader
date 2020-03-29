@@ -22,6 +22,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * 
+ * @author HP PAVILION
+ *
+ */
 public class View extends Application {
 
 	private Stage stage;
@@ -130,7 +136,12 @@ public class View extends Application {
 		stage.show();
 	}
 
-	// Panel 1
+	/**
+	 * Creates panel 1 which contains a welcoming messaging that informs the
+	 * user on how to use the program.
+	 * Upon the selection of a starting and ending price, the values are displayed
+	 * to allow the user to confirm their choice.
+	 */
 	private Pane createPanel1() {
 		BorderPane pane = new BorderPane();
 		
@@ -166,7 +177,11 @@ public class View extends Application {
 		return pane;
 	}
 	
-	// Panel 2
+	/**
+	 * Creates panel 2 which contains a map of London with its boroughs.
+	 * Only boroughs within the selected range can be interacted with while the others are disabled.
+	 * For further information of the map visit the MapPane class.
+	 */
 	private Pane createPanel2() {
 		Pane pane = new Pane();
 
@@ -176,7 +191,10 @@ public class View extends Application {
 		return pane;
 	}
 
-	// Panel 3
+	/**
+	 * Creates panel 3 which is a stage that contains several statistics related to the properties.
+	 * This panel automatically appears as panel 2 is visited.
+	 */
     private Stage createPanel3() {
     	Stage stage = new Stage();
     	
@@ -249,16 +267,25 @@ public class View extends Application {
         return layout;
     }
 	
+    /**
+     * Allows the user to visit the next panel.
+     */
 	private void nextPanel(ActionEvent event) {
 		panelIndex = (panelIndex + 1 ) % panels.size();
 		changePanel();
 	}
 	
+	/**
+     * Allows the user to visit the previous panel.
+     */
 	private void previousPanel(ActionEvent event) {
 		panelIndex = (panels.size() + panelIndex - 1) % panels.size();
 		changePanel();
 	}
 	
+	/**
+	 * Changes the current panel with another one at the center of the program.
+	 */
 	private void changePanel() {
 		root.setCenter(panels.get(panelIndex));
 		
@@ -272,6 +299,12 @@ public class View extends Application {
 		stage.sizeToScene();
 	}
 	
+	/**
+	 * Validates the selected starting and ending price when both of them have been selected.
+	 * A starting price bigger than or equale to the ending price is considered invalid and will display
+	 * an error dialog.
+	 * If the prices are valid, the forward and back button are enabled, allowing the user to progress.
+	 */
 	private void validateInput() {
 		if (!isSelected[0] || !isSelected[1]) return;
 		
@@ -286,6 +319,11 @@ public class View extends Application {
 		}
 	}
 	
+	/**
+	 * Prepares panel 2 and panel 3.
+	 * Once a valid pair of prices are selected statitics are calculated
+	 * and the map is built.
+	 */
 	private void processSelectedPriceRange() {
 		controller = new Controller(airbnbDataLoader.getProperties());
 		controller.setStartPrice(fromChoice.getValue());
@@ -296,6 +334,9 @@ public class View extends Application {
 		changePanel();
 	}
 	
+	/**
+	 * Pops up a warning dialog.
+	 */
 	private void showInvalidRangeAlert() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Invalid");
