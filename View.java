@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 /**
  * 
  * 
- * @author HP PAVILION
+ * @author
  *
  */
 public class View extends Application {
