@@ -156,9 +156,7 @@
 }
 
 #panel-4 {
-	 -fx-font-size: 11pt;
-}
-
-#panel-4 > .button {
-	 -fx-background-color: white;
+	-fx-font-size: 11pt;
+	-fx-alignment: center;
+	-fx-padding: 50px;
 }

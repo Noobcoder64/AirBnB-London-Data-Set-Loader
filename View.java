@@ -24,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -288,7 +289,7 @@ public class View extends Application {
     }
 
     private Pane createPanel4() {
-        Pane pane = new Pane();
+        StackPane pane = new StackPane();
         pane.setId("panel-4");
         
         BorderPane borderPane = new BorderPane();
@@ -313,7 +314,7 @@ public class View extends Application {
         borderPane.setTop(vbox);
         borderPane.setLeft(buttonVbox);
 
-        pane.getChildren().addAll(borderPane);
+        pane.getChildren().add(borderPane);
         return pane;
     }
 
