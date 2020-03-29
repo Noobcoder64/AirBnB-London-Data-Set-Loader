@@ -20,6 +20,7 @@ public class PropertyDescriptionStage extends Stage {
 	public PropertyDescriptionStage(AirbnbListing property) {
 		gridPane = new GridPane();
 		gridPane.setId("property-description-grid-pane");
+		gridPane.setHgap(10);
 		
 		addDescription("Name", property.getName());
 		addDescription("Host Name", property.getHost_name());

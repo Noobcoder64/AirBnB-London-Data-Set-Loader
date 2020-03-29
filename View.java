@@ -1,3 +1,5 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -167,20 +171,35 @@ public class View extends Application {
 	private Pane createPanel1() {
 		BorderPane pane = new BorderPane();
 		
-		StackPane stackPane = new StackPane();
-		stackPane.setId("welcome-pane");
+		VBox vBox = new VBox();
+		vBox.setId("welcome-pane");
+		vBox.setAlignment(Pos.CENTER);
+		
+		FileInputStream inputstream = null;
+		try {
+			inputstream = new FileInputStream("images/background.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} 
+		
+		Image image = new Image(inputstream); 
+		ImageView imageView = new ImageView(image);
+		imageView.setFitWidth(600);
+		imageView.setPreserveRatio(true);
+		
+		vBox.getChildren().add(imageView);
 		
 		Label welcomeLabel = new Label("Welcome to London's Property MarketPlace.\r\n" +
 				"Please enter a price range to start.\r\n" +
-				"Subsequently, on the right panel you will be able to see Boroughs in London which\r\n" +
+				"The next panel will contain a map displaying Boroughs in London which\r\n" +
 				"have properties for rental within your selected price range.\r\n" +
-				"The border colour in each borough suggests the availibility of properties. \r\n" +
-				"Hover over a borough to see the number of properties. \r\n" +
-				"Click on a borough to view the properties in a table. \r\n" +
-				"Click a property row to view the description of that property.");
+				"- The border colour in each borough suggests the availibility of properties. \r\n" +
+				"- Hover over a borough to see the number of properties. \r\n" +
+				"- Click on a borough to view the properties in a table. \r\n" +
+				"- Click a property row to view the description of that property.");
 		welcomeLabel.setId("welcome-label");
 		
-		stackPane.getChildren().add(welcomeLabel);
+		vBox.getChildren().add(welcomeLabel);
 		
 		HBox selectedRangeBox = new HBox();
 		selectedRangeBox.setAlignment(Pos.CENTER);
@@ -194,7 +213,7 @@ public class View extends Application {
 		selectedRangeBox.getChildren().add(new Label("-"));
 		selectedRangeBox.getChildren().add(toPriceLabel);
 		
-		pane.setCenter(stackPane);
+		pane.setCenter(vBox);
 		pane.setBottom(selectedRangeBox);
 		return pane;
 	}

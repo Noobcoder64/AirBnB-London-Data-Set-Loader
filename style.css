@@ -12,7 +12,7 @@
 }
 
 #price-range-box > .label {
-    -fx-background-color:aliceblue;
+    -fx-background-color: aliceblue;
     -fx-padding: 5 5 0 0;
 }
 
@@ -31,10 +31,11 @@
 }
 
 #welcome-pane {
-	-fx-padding: 40px;
+	
 }
 
 #welcome-label {
+	-fx-padding: 20px;
 	-fx-font-size: 15px;
 	-fx-text-alignment: center;
 }
@@ -43,7 +44,7 @@
 	-fx-font-size: 15px;
 	-fx-padding: 10px;
 	-fx-spacing: 10.0px;
-	-fx-background-color: snow;
+	-fx-background-color: aliceblue;
 }
 
 #navigation-box {
@@ -76,11 +77,6 @@
 
 .borough-pane > .button {
 	 -fx-background-color: white;
-}
-
-.section-pane {
-    -fx-padding: 5 5 10 105;   
-    -fx-background-color: green;
 }
 
 /* BOROUGH PROPERTIES STAGE */
@@ -133,23 +129,19 @@
 /* PROPERTIES DESCRIPTION STAGE */
 
 #property-description-grid-pane {
-	-fx-background-color: linear-gradient(to right,#fa7c30 30%, white 30%);
-	-fx-padding: 3.0px;
-    -fx-font-weight: bold;
-    
+	-fx-background-color: linear-gradient(to right,aliceblue 45%, white 55%);
+	-fx-padding: 10px;
 }
 
 .name-label {
-	-fx-background-color: #fa7c30;
+	-fx-font-weight: bold;
     -fx-font-family: italic;
     -fx-font-size: 12pt;
-    -fx-padding:3px;    
 }
 
 .description-label {
 	-fx-background-color: white;
     -fx-font-size: 12pt;
-    -fx-padding: 3 0 1 1;
 }
 
 #statistic-v-box > .label{
