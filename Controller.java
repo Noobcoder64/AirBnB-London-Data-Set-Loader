@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * A collection of properties that is within a give price range.
@@ -29,10 +30,10 @@ public class Controller {
     private int endPrice;
 
     private int averageReviews;
-    private int totalNumberOfHomeOrApt;
+    private long totalNumberOfHomeOrApt;
     
-    private String mostExpensiveBorough;
-    private String cheapestBorough;
+    private Borough mostExpensiveBorough;
+    private Borough cheapestBorough;
     private String mostReviewedBorough;
     private String cheapestPropertyDescription;
     private String mostExpensiveName;
@@ -64,17 +65,22 @@ public class Controller {
                     boroughs.put(neighbourhood, new Borough(neighbourhood));
                 }
                 boroughs.get(neighbourhood).addProperty(property);
-
         });
         
-        int reviews = 0;
+        // Average number of reviews per property.
+        averageReviews = properties.stream().map(AirbnbListing::getNumberOfReviews).reduce(0, (a, b) -> a + b) / properties.size();
+        
+        // Number of entire home and apartments
+        totalNumberOfHomeOrApt = properties.stream().map(AirbnbListing::getRoom_type).filter(rt -> rt.equals("Entire home/apt")).count();
+
+        // Most Expensive Borough.
+        mostExpensiveBorough = boroughs.values().stream().max(Comparator.comparing(Borough::getTotalPriceOfProperties)).orElse(null);
+        
+        // Cheapest Expensive Borough.
+        cheapestBorough = boroughs.values().stream().min(Comparator.comparing(Borough::getTotalPriceOfProperties)).orElse(null);
+        
         List<Integer> prices = new ArrayList<>();
         for (AirbnbListing property : properties) {
-            reviews = reviews + property.getNumberOfReviews();
-            if(property.getRoom_type().equals("Entire home/apt"))
-            {
-                totalNumberOfHomeOrApt++;
-            }
             if(property.getReviewsPerMonth() > reviewedNumber){
                 reviewedNumber = property.getReviewsPerMonth();
                 mostReviewedBorough = property.getNeighbourhood();
@@ -89,7 +95,6 @@ public class Controller {
         {
             if(sortedlist.get(0) == (property.getPrice() * property.getMinimumNights()))
             {
-                cheapestBorough = property.getNeighbourhood();
                 cheapestPropertyDescription = property.getName();
                 cheapestHostName = property.getHost_name();
                 latitudeOfCheapProperty = property.getLatitude();
@@ -97,7 +102,6 @@ public class Controller {
             }
             if(sortedlist.get(sortedlist.size() - 1) == (property.getPrice() * property.getMinimumNights()))
             {
-                mostExpensiveBorough = property.getNeighbourhood();
                 mostExpensiveName = property.getName();
                 mostExpensiveHostName = property.getHost_name();
                 latitudeOfExpensiveProperty = property.getLatitude();;
@@ -105,7 +109,6 @@ public class Controller {
             }
         }
 
-        averageReviews = reviews/properties.size();
         boroughStatistics = new StatisticCalculator();
         for (Borough borough : boroughs.values()) {
             boroughStatistics.addValue(borough.getNumberOfProperties());
@@ -162,21 +165,21 @@ public class Controller {
     /**
      * Accessor Method to get total number of Home/Appartment type
      */
-    public int getHomeApartments() {
+    public long getHomeApartments() {
         return totalNumberOfHomeOrApt;
     }
 
     /**
      * Accessor Method to get Borough with most expensive price
      */
-    public String getMostExpensiveBorough() {
+    public Borough getMostExpensiveBorough() {
         return mostExpensiveBorough;
     }
 
     /**
      * Accessor Method to get Borough with cheapest price
      */
-    public String getCheapestBorough() {
+    public Borough getCheapestBorough() {
         return cheapestBorough;
     }
 

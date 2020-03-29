@@ -68,7 +68,7 @@ public class ControllerTest
         controller.setStartPrice(100);
         controller.setEndPrice(200);
         controller.processRange();
-        assertEquals(14029, controller.getAvailableProperties());
+        assertEquals(12, controller.getAverageReviews());
     }
     
     @Test
@@ -86,7 +86,7 @@ public class ControllerTest
         controller.setStartPrice(100);
         controller.setEndPrice(200);
         controller.processRange();
-        assertEquals("Tower Hamlets", controller.getMostExpensiveBorough());
+        assertEquals("Westminster", controller.getMostExpensiveBorough().getName());
     }
     
     @Test
@@ -95,7 +95,7 @@ public class ControllerTest
         controller.setStartPrice(100);
         controller.setEndPrice(200);
         controller.processRange();
-        assertEquals("Barking and Dagenham", controller.getCheapestBorough());
+        assertEquals("Bexley", controller.getCheapestBorough().getName());
     }
     @Test
     public void testGetExpensiveHost() {

@@ -24,7 +24,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -86,6 +85,7 @@ public class View extends Application {
 		
 		panels = new ArrayList<>();
 		panels.add(createPanel1());
+		panels.add(null);
 		panels.add(null);
 		
 		// Main content Pane.
@@ -174,7 +174,6 @@ public class View extends Application {
 		BorderPane pane = new BorderPane();
 		
 		VBox vBox = new VBox();
-		vBox.setId("welcome-pane");
 		vBox.setAlignment(Pos.CENTER);
 		
 		FileInputStream inputstream = null;
@@ -256,8 +255,8 @@ public class View extends Application {
         VBox v1 = createVBox("Number of Properties\n\n"+ String.valueOf(controller.getAvailableProperties()));
         VBox v2 = createVBox("Total average reviews\n\n"+ String.valueOf(controller.getAverageReviews()));
         VBox v3 = createVBox("Total Number of Home/Apartments\n\n"+ String.valueOf(controller.getHomeApartments()));
-        VBox v4 = createVBox("Most expensive borough\n\n"+ String.valueOf(controller.getMostExpensiveBorough()));
-        VBox v5 = createVBox("Cheapest borough\n\n"+ String.valueOf(controller.getCheapestBorough()));
+        VBox v4 = createVBox("Most expensive borough\n\n"+ String.valueOf(controller.getMostExpensiveBorough().getName()));
+        VBox v5 = createVBox("Cheapest borough\n\n"+ String.valueOf(controller.getCheapestBorough().getName()));
         VBox v6 = createVBox("Most expensive property description\n\n"+ String.valueOf(controller.getMostExpensiveDescription() + "\n\n Host Name: " + controller.getExpensiveHost()));
         VBox v7 = createVBox("Cheapest property description\n\n"+ String.valueOf(controller.getCheapestBoroughDescription()) + "\n\n Host Name: " + controller.getCheapestHost());
         VBox v8 = createVBox("Most reviewed borough\n\n"+ String.valueOf(controller.getMostReviewedBorough()));
@@ -290,20 +289,22 @@ public class View extends Application {
 
     private Pane createPanel4() {
         Pane pane = new Pane();
+        pane.setId("panel-4");
+        
         BorderPane borderPane = new BorderPane();
-
-        Label label = new Label("Enter a location or address:");
+        
+        Label label = new Label("Enter your location:");
         TextField text = new TextField();
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(label, text);
 
-        Label label1 = new Label("Click here to get direction to cheapest property:");
-        Button btn1 = new Button("Check");
+        Label label1 = new Label("Get direction to the cheapest property:");
+        Button btn1 = new Button("Go");
         btn1.setOnAction(e -> viewOnMapsButton(text.getText(), controller.getLatitudeOfCheapProperty(), controller.getLongitudeOfCheapProperty()));
 
-        Label label2 = new Label("Click here to get direction to most expensive property:");
-        Button btn2 = new Button("Check");
+        Label label2 = new Label("Get direction to the most expensive property:");
+        Button btn2 = new Button("Go");
         btn2.setOnAction(e -> viewOnMapsButton(text.getText(), controller.getLatitudeOfExpensiveProperty(), controller.getLongitudeOfExpensiveProperty()));
 
         VBox buttonVbox = new VBox();
@@ -432,6 +433,7 @@ public class View extends Application {
 		controller.setEndPrice(toChoice.getValue());
 		controller.processRange();
 		panels.set(1, createPanel2());
+		panels.set(2, createPanel4());
 		
 		if (panel3 != null) panel3.hide();
 		panel3 = createPanel3();

@@ -64,7 +64,7 @@ public class Borough {
 	 * @return the sum of the prices of the properties in this borough
 	 */
 	public int getTotalPriceOfProperties() {
-		return priceStatistics.getTotal();
+		return properties.stream().map(AirbnbListing::getPrice).reduce(0, (a, b) -> a + b);
 	}
 	
 }

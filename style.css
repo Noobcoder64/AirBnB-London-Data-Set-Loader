@@ -30,10 +30,6 @@
     -fx-border-color: gainsboro;
 }
 
-#welcome-pane {
-	
-}
-
 #welcome-label {
 	-fx-padding: 20px;
 	-fx-font-size: 15px;
@@ -157,4 +153,12 @@
 	-fx-border-color: #000080;
 	-fx-border-width: 2;
 	-fx-text-fill: white;
+}
+
+#panel-4 {
+	 -fx-font-size: 11pt;
+}
+
+#panel-4 > .button {
+	 -fx-background-color: white;
 }
