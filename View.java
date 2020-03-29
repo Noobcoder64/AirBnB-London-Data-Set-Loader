@@ -26,7 +26,6 @@ import javafx.stage.Stage;
  * 
  * 
  * @author
- *
  */
 public class View extends Application {
 
@@ -68,6 +67,36 @@ public class View extends Application {
 		BorderPane root = new BorderPane();
 		this.root = root;
 		
+		// Price range drop-down
+		Pane priceRangeBox = createPriceRangeBox();
+		root.setTop(priceRangeBox);
+		
+		panels = new ArrayList<>();
+		panels.add(createPanel1());
+		panels.add(null);
+		
+		// Main content Pane.
+		root.setCenter(panels.get(0));
+		
+		// Navigation buttons
+		Pane navigationBox = createNavigationBox();
+		root.setBottom(navigationBox);
+
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add("style.css");
+		
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.setTitle("London Property Marketlace");
+
+		stage.show();
+	}
+
+	/**
+	 * Creates the drop-down menu from which a price range can be specified.
+	 * This price range is used to prepare panel 2 and 3.
+	 */
+	private Pane createPriceRangeBox() {
 		HBox priceRangeBox = new HBox();
 		priceRangeBox.setId("price-range-box");
 		
@@ -87,7 +116,6 @@ public class View extends Application {
 			validateInput();
 		});
 		
-		
 		Label toLabel = new Label("To:");
 		toChoice = new ChoiceBox<>();
 		toChoice.setItems(observableList);
@@ -97,16 +125,13 @@ public class View extends Application {
 		});
 
 		priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
-		root.setTop(priceRangeBox);
-
-		panels = new ArrayList<>();
-		
-		panels.add(createPanel1());
-		panels.add(null);
-		
-		// Main content Pane.
-		root.setCenter(panels.get(0));
-		
+		return priceRangeBox;
+	}
+	
+	/**
+	 * Creates the forward and back button that allow to navigate through the next and previous panel.
+	 */
+	private Pane createNavigationBox() {
 		HBox navigationBox = new HBox();
 		navigationBox.setId("navigation-box");
 		
@@ -118,24 +143,14 @@ public class View extends Application {
 		forwardButton.setOnAction(this::nextPanel);
 		forwardButton.setDisable(true);
 		
-		backButton.getStyleClass().add("navigation-button");	// <-- ADD A CLASS (FOR MANY COMPONENTS
-		forwardButton.getStyleClass().add("navigation-button");	// <-- 				TO HAVE THE SAME STYLE)
+		backButton.getStyleClass().add("navigation-button");
+		forwardButton.getStyleClass().add("navigation-button");
 		
 		HBox.setHgrow(space, Priority.ALWAYS);
 		navigationBox.getChildren().addAll(backButton, space, forwardButton);
-
-		root.setBottom(navigationBox);
-
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add("style.css");
-		
-		stage.setResizable(false);
-		stage.setScene(scene);
-		stage.setTitle("London Property Marketlace");
-
-		stage.show();
+		return navigationBox;
 	}
-
+	
 	/**
 	 * Creates panel 1 which contains a welcoming messaging that informs the
 	 * user on how to use the program.
@@ -330,6 +345,8 @@ public class View extends Application {
 		controller.setEndPrice(toChoice.getValue());
 		controller.processRange();
 		panels.set(1, createPanel2());
+		
+		if (panel3 != null) panel3.hide();
 		panel3 = createPanel3();
 		changePanel();
 	}

@@ -1,3 +1,4 @@
+
 .root {
 	-fx-padding: 8.0px;
 	-fx-background-color: white;
@@ -12,7 +13,7 @@
 
 #price-range-box > .label {
     -fx-background-color:aliceblue;
-    
+    -fx-padding: 5 5 0 0;
 }
 
 #price-range-box > .choice-box {
@@ -55,7 +56,7 @@
     -fx-font-size: 15.0px;
     -fx-font-style: italic;
     -fx-background-color: snow;
-    -fx-border-radius: 5.0px;
+    -fx-border-radius: 2.0px;
     -fx-border-color:  #D0D0D0;
     -fx-pref-width: 50.0px;
 }
@@ -65,7 +66,8 @@
 }
 
 .map-pane {
-	 -fx-background-color: white;
+	-fx-background-color: linear-gradient(aliceblue 50%, white 50%);
+	-fx-padding: 10px;
 }
 
 .borough-pane {
@@ -78,49 +80,76 @@
 
 .section-pane {
     -fx-padding: 5 5 10 105;   
-    -fx-background-color: white;
+    -fx-background-color: green;
 }
 
-/* BOROUGH PROPERTIES STAGE (TABLE WITH PROPERTIES) */
+/* BOROUGH PROPERTIES STAGE */
 
 #sort-box {
-	-fx-background-color: red;
+	-fx-background-color: #4F9EC4;
+    -fx-alignment: top-right;
+    -fx-padding: 5px;
+}
+
+#sort-box > .choice-box {
+    -fx-border-radius: 3.0px;
+}
+
+#sort-box > .choice-box:hover {
+	-fx-background-color: snow;
 }
 
 #sort-box > .label {
-	-fx-background-color: white;
+    -fx-padding: 4 6 4 4;
+    -fx-font-size: 12pt;
+    -fx-text-fill: white;
+    -fx-font-family: italic;
+    -fx-font-weight: bold;
 }
 
 #table-box {
 	-fx-background-color: blue;
-	-fx-padding: 10px;
 }
 
 .header-pane {
-	-fx-background-color: orange;
+	-fx-background-color: #6CB2D1;
+    -fx-padding: 4 5 4 5;
+    -fx-font-family: italic;
+    -fx-font-size: 13pt;
+    -fx-font-weight: bold;
 }
 
 .body-pane {
-	-fx-background-color: yellow;
+ 	-fx-background-color: white;
 }
 
 .property-row-box {
-	-fx-background-color: green;
+	-fx-background-color: #fff5e6;
+    -fx-font-size: 12pt;
+    -fx-padding:4px;
+    -fx-font-family: italic;
 }
 
 /* PROPERTIES DESCRIPTION STAGE */
 
 #property-description-grid-pane {
-	-fx-background-color: red;
+	-fx-background-color: linear-gradient(to right,#fa7c30 30%, white 30%);
+	-fx-padding: 3.0px;
+    -fx-font-weight: bold;
+    
 }
 
 .name-label {
-	-fx-background-color: yellow;
-	-fx-font-weight: bold;
+	-fx-background-color: #fa7c30;
+    -fx-font-family: italic;
+    -fx-font-size: 12pt;
+    -fx-padding:3px;    
 }
 
 .description-label {
-	-fx-background-color: orange;
+	-fx-background-color: white;
+    -fx-font-size: 12pt;
+    -fx-padding: 3 0 1 1;
 }
 
 #StatisticVBox > .label{
