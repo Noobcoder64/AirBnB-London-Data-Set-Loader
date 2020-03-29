@@ -1,13 +1,9 @@
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.opencsv.CSVReader;
 import java.net.URISyntaxException;
@@ -20,23 +16,23 @@ import java.net.URISyntaxException;
  */
 public class AirbnbDataLoader {
  
-	private List<AirbnbListing> properties;	// All properties for rental in Airbnb.
+	private List<AirbnbListing> properties;
 	
 	private StatisticCalculator priceStatistics; // Statistics derived from the prices of all properties.
 	
 	public AirbnbDataLoader() {
 		this.properties = new ArrayList<>();
 		priceStatistics = new StatisticCalculator();
-		load();
 	}
 	
     /** 
      * Return an ArrayList containing the rows in the AirBnB London data set csv file.
+     * @param filePath CSV file to load data from
      */
-    public void load() {
+    public void load(String filePath) { // airbnb-london.csv
         System.out.print("Begin loading Airbnb london dataset...");
         try{
-            URL url = getClass().getResource("airbnb-london.csv");
+            URL url = getClass().getResource(filePath);
             CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
             String [] line;
             //skip the first row (column headers)
@@ -67,7 +63,7 @@ public class AirbnbDataLoader {
                 priceStatistics.addValue(price);
             }
             
-        } catch(IOException | URISyntaxException e){
+        } catch(IOException | URISyntaxException e) {
             System.out.println("Failure! Something went wrong");
             e.printStackTrace();
         }

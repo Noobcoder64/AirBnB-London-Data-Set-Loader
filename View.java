@@ -5,7 +5,11 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -17,8 +21,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.geometry.Insets;
-//import javafx.geometry.Pos;
 
 public class View extends Application {
 
@@ -26,14 +28,32 @@ public class View extends Application {
 
     private BorderPane root;
 
+    private AirbnbDataLoader airbnbDataLoader;
+
     private Controller controller;
 
     private List<Pane> panels;
-
     private int panelIndex;
 
     ChoiceBox<Integer> fromChoice;
     ChoiceBox<Integer> toChoice;
+
+    private boolean[] isSelected;
+
+    private Button backButton;
+    private Button forwardButton;
+
+    private Label fromPriceLabel;
+    private Label toPriceLabel;
+
+    private Stage panel3;
+
+    public View() {
+        airbnbDataLoader = new AirbnbDataLoader();
+        airbnbDataLoader.load("airbnb-london.csv");
+
+        isSelected = new boolean[2];
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -42,12 +62,11 @@ public class View extends Application {
         BorderPane root = new BorderPane();
         this.root = root;
 
-        controller = new Controller();
         HBox priceRangeBox = new HBox();
         priceRangeBox.setId("price-range-box");
 
-        int maxPrice = ((controller.getAllPriceStatistics().getMaxValue() + 99) / 100) * 100;
-        int minPrice = controller.getAllPriceStatistics().getMinValue() / 100 * 100;
+        int maxPrice = ((airbnbDataLoader.getPriceStatistics().getMaxValue() + 99) / 100) * 100;
+        int minPrice = airbnbDataLoader.getPriceStatistics().getMinValue() / 100 * 100;
 
         ObservableList<Integer> observableList = FXCollections.observableArrayList();
         for (int i = minPrice; i <= maxPrice; i += 100) {
@@ -57,21 +76,25 @@ public class View extends Application {
         Label fromLabel = new Label("From:");
         fromChoice = new ChoiceBox<>();
         fromChoice.setItems(observableList);
+        fromChoice.setOnAction(e -> {
+                isSelected[0] = true;
+                validateInput();
+            });
 
         Label toLabel = new Label("To:");
         toChoice = new ChoiceBox<>();
         toChoice.setItems(observableList);
+        toChoice.setOnAction(e -> {
+                isSelected[1] = true;
+                validateInput();
+            });
 
-        Button goButton = new Button("Go");
-        goButton.setOnAction(this::processSelectedPriceRange);
-
-        priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice, goButton);
+        priceRangeBox.getChildren().addAll(fromLabel, fromChoice, toLabel, toChoice);
         root.setTop(priceRangeBox);
 
         panels = new ArrayList<>();
 
         panels.add(createPanel1());
-        panels.add(null);
         panels.add(null);
 
         // Main content Pane.
@@ -80,11 +103,13 @@ public class View extends Application {
         HBox navigationBox = new HBox();
         navigationBox.setId("navigation-box");
 
-        Button backButton = new Button("<");
+        backButton = new Button("<");
         backButton.setOnAction(this::previousPanel);
+        backButton.setDisable(true);
         Pane space = new Pane();
-        Button forwardButton = new Button(">");
+        forwardButton = new Button(">");
         forwardButton.setOnAction(this::nextPanel);
+        forwardButton.setDisable(true);
 
         backButton.getStyleClass().add("navigation-button");    // <-- ADD A CLASS (FOR MANY COMPONENTS
         forwardButton.getStyleClass().add("navigation-button"); // <--              TO HAVE THE SAME STYLE)
@@ -97,7 +122,7 @@ public class View extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("style.css");
 
-        //primaryStage.setResizable(false);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.setTitle("London Property Marketlace");
 
@@ -106,10 +131,38 @@ public class View extends Application {
 
     // Panel 1
     private Pane createPanel1() {
-        StackPane stackPane = new StackPane();
-        stackPane.setMinSize(500, 500);
+        BorderPane pane = new BorderPane();
 
-        return stackPane;
+        StackPane stackPane = new StackPane();
+        stackPane.setId("welcome-pane");
+
+        Label welcomeLabel = new Label("Welcome to London's Property MarketPlace.\r\n" +
+                "Please enter a price range to start.\r\n" +
+                "Subsequently, on the right panel you will be able to see Boroughs in London which\r\n" +
+                "have properties for rental within your selected price range.\r\n" +
+                "The border colour in each borough suggests the availibility of properties. \r\n" +
+                "Hover over a borough to see the number of properties. \r\n" +
+                "Click on a borough to view the properties in a table. \r\n" +
+                "Click a property row to view the description of that property.");
+        welcomeLabel.setId("welcome-label");
+
+        stackPane.getChildren().add(welcomeLabel);
+
+        HBox selectedRangeBox = new HBox();
+        selectedRangeBox.setAlignment(Pos.CENTER);
+        selectedRangeBox.setId("selected-range-box");
+
+        fromPriceLabel = new Label("N/A");
+        toPriceLabel = new Label("N/A");
+
+        selectedRangeBox.getChildren().add(new Label("Selected price range:"));
+        selectedRangeBox.getChildren().add(fromPriceLabel);
+        selectedRangeBox.getChildren().add(new Label("-"));
+        selectedRangeBox.getChildren().add(toPriceLabel);
+
+        pane.setCenter(stackPane);
+        pane.setBottom(selectedRangeBox);
+        return pane;
     }
 
     // Panel 2
@@ -123,17 +176,22 @@ public class View extends Application {
     }
 
     // Panel 3
-    private Pane createPanel3() {
-        Pane pane = new Pane();
+    private Stage createPanel3() {
+        Stage stage = new Stage(); //Creating a new stage for the 3rd panel
 
+        Pane pane = new Pane(); 
+
+        //Creating GridPane to add statistics BorderPane
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         gridPane.setId("gridPane");
-        
+
+        //Setting vertical and horizontal spacing between each cell.
         gridPane.setVgap(10);
         gridPane.setHgap(10);
 
         //Creating VBox's to display the statistics
+        //The parameters accept one String, thus data is being concatinated
         VBox v1 = createVBox("Number of Properties\n\n"+ String.valueOf(controller.getAvailableProperties()));
         VBox v2 = createVBox("Total average reviews\n\n"+ String.valueOf(controller.getAverageReviews()));
         VBox v3 = createVBox("Total Number of Home/Apartments\n\n"+ String.valueOf(controller.getHomeApartments()));
@@ -142,45 +200,66 @@ public class View extends Application {
         VBox v6 = createVBox("Most expensive property description\n\n"+ String.valueOf(controller.getMostExpensiveDescription() + "\n\n Host Name: " + controller.getExpensiveHost()));
         VBox v7 = createVBox("Cheapest property description\n\n"+ String.valueOf(controller.getCheapestBoroughDescription()) + "\n\n Host Name: " + controller.getCheapestHost());
         VBox v8 = createVBox("Most reviewed borough\n\n"+ String.valueOf(controller.getMostReviewedBorough()));
-        
+
         //Creating BorderPane and adding the VBox as parameter to change in button action
-        BorderPane b1 = createBorderPane(v1, v5);
-        BorderPane b2 = createBorderPane(v3, v6);
-        BorderPane b3 = createBorderPane(v2, v7);
-        BorderPane b4 = createBorderPane(v4, v8);
-        
-        //gridPane.setAlignment(Pos.CENTER);
+        BorderPane b1 = createBorderPane(v1, v3);
+        BorderPane b2 = createBorderPane(v2, v8);
+        BorderPane b3 = createBorderPane(v4, v5);
+        BorderPane b4 = createBorderPane(v6, v7);
+
         //Laying the borderpane accordingly
+        //4 section of BorderPane with 2 statistics each
         gridPane.add(b1, 0, 0);
         gridPane.add(b2, 0, 1);
         gridPane.add(b3, 1, 0);
         gridPane.add(b4, 1, 1);
 
         pane.getChildren().add(gridPane);
-        pane.setMinSize(900, 400);
-        return pane;
+        pane.setMinSize(800, 400);
+
+        Scene scene = new Scene(pane);
+        scene.getStylesheets().add("style.css");
+
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setTitle("Statistics");
+
+        return stage;
     }
 
+    /**
+     * Creating VBox and help with less code duplication
+     * @param a concatinated String of the statistics title and the actual value
+     * @return VBox which is then used in panel3 as statistics view
+     */
     public VBox createVBox(String Context){
         VBox centerView = new VBox();
         Label statistics = new Label(Context);
-        statistics.setPrefSize(400, 200);
+        statistics.setPrefSize(315, 200);
         centerView.getChildren().add(statistics);
         centerView.setId("StatisticVBox");
         return centerView;
     }
 
+    /**
+     * Creating BorderPane method for panel3 to reduce duplication
+     * @param VBoxs 1st VBox for the current and 2nd VBox for the previous statistics
+     * @return BorderPane which is then used in panel3 as statistics view
+     */
     public BorderPane createBorderPane(VBox v1, VBox v2){
         BorderPane layout = new BorderPane();
         layout.setCenter(v1);
-        Button next = new Button(">");
+        
+        Button next = new Button(">");  //Next button
+        next.setDisable(false);
         next.setMinSize(50, 200);
         layout.setRight(next);
-        next.setOnAction(e -> layout.setCenter(v2));
-        Button back = new Button("<");
+        next.setOnAction(e -> layout.setCenter(v2));    //Changing VBox to next VBox
+        Button back = new Button("<");  //Back button
         back.setMinSize(50, 200);
         layout.setLeft(back);
-        back.setOnAction(e -> layout.setCenter(v1));
+        back.setOnAction(e -> layout.setCenter(v1));    //Changing VBox to previous VBox
+
         layout.setId("StatisticBorderPane");
         return layout;
     }
@@ -197,17 +276,47 @@ public class View extends Application {
 
     private void changePanel() {
         root.setCenter(panels.get(panelIndex));
+
+        // Displays panel 3 whenever panel 2 is viewed
+        if (panelIndex == 1) {
+            panel3.show();
+        } else {
+            panel3.hide();
+        }
+
         stage.sizeToScene();
     }
 
-    private void processSelectedPriceRange(ActionEvent event) {
-        controller = new Controller();
+    private void validateInput() {
+        if (!isSelected[0] || !isSelected[1]) return;
+
+        if (fromChoice.getValue() >= toChoice.getValue()) {
+            showInvalidRangeAlert();
+        } else {
+            backButton.setDisable(false);
+            forwardButton.setDisable(false);
+            processSelectedPriceRange();
+            fromPriceLabel.setText(String.valueOf(fromChoice.getValue()));
+            toPriceLabel.setText(String.valueOf(toChoice.getValue()));
+        }
+    }
+
+    private void processSelectedPriceRange() {
+        controller = new Controller(airbnbDataLoader.getProperties());
         controller.setStartPrice(fromChoice.getValue());
         controller.setEndPrice(toChoice.getValue());
         controller.processRange();
         panels.set(1, createPanel2());
-        panels.set(2, createPanel3());
+        panel3 = createPanel3();
         changePanel();
+    }
+
+    private void showInvalidRangeAlert() {
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Invalid");
+        alert.setHeaderText(null);
+        alert.setContentText("Please input a valid range");
+        alert.showAndWait();
     }
 
     public static void main(String[] args) {

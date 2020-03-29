@@ -2,14 +2,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 
 public class Controller {
-
-    AirbnbDataLoader airbnbDataLoader;
 
     private List<AirbnbListing> allProperties;
 
@@ -34,14 +30,19 @@ public class Controller {
     
     private double reviewedNumber;
 
-    public Controller() {
-        airbnbDataLoader = new AirbnbDataLoader();
+    public Controller(List<AirbnbListing> properties) {
+        allProperties = properties;
         boroughs = new HashMap<>();
-
-        allProperties = airbnbDataLoader.getProperties();
     }
 
+    /**
+     * This method's use is to do the price range selection.
+     * It
+     */
     public void processRange() {
+        averageReviews = 0;
+        TotNumberOfHomeOrApt = 0;
+        
         this.properties = allProperties.stream().filter(property -> property.getPrice() >= startPrice && property.getPrice() <= endPrice).collect(Collectors.toList());
 
         properties.stream().forEach(property -> {
@@ -62,11 +63,6 @@ public class Controller {
             {
                 TotNumberOfHomeOrApt++;
             }
-            // if((property.getPrice() * property.getMinimumNights()) > mostExpensive){
-            // mostExpensive = property.getPrice() * property.getMinimumNights();
-            // mostExpensiveBorough = property.getNeighbourhood();
-            // mostExpensiveName = property.getName();
-            // }
             if(property.getReviewsPerMonth() > reviewedNumber){
                 reviewedNumber = property.getReviewsPerMonth();
                 mostReviewedBorough = property.getNeighbourhood();
@@ -113,52 +109,48 @@ public class Controller {
         return boroughs;
     }
 
-    public StatisticCalculator getAllPriceStatistics() {
-        return airbnbDataLoader.getPriceStatistics();
-    }
-
     public StatisticCalculator getBoroughStatistics() {
         return boroughStatistics;
     }
 
     public int getAvailableProperties() {
-        return properties.size();
+        return properties.size();   //Accessor Method to get number of properties available in selected price range
     }
 
     public int getAverageReviews() {
-        return averageReviews;
+        return averageReviews;  //Accessor Method to get average reviews in the selected price range
     }
 
     public int getHomeApartments() {
-        return TotNumberOfHomeOrApt;
+        return TotNumberOfHomeOrApt;    //Accessor Method to get total number of Home/Appartment type
     }
 
     public String getMostExpensiveBorough() {
-        return mostExpensiveBorough;
+        return mostExpensiveBorough;    //Accessor Method to get Borough with most expensive price
     }
 
     public String getCheapestBorough() {
-        return cheapestBorough;
+        return cheapestBorough; //Accessor Method to get Borough with cheapest price
     }
 
     public String getMostExpensiveDescription() {
-        return mostExpensiveName;
+        return mostExpensiveName;   //Accessor method to get Name/Property Description of the most expensive price
     }
 
     public String getCheapestBoroughDescription() {
-        return cheapestBoroughDescription;
+        return cheapestBoroughDescription;  //Accessor method to get Name/Property Description of the cheapest price
     }
 
     public String getMostReviewedBorough() {
-        return mostReviewedBorough;
+        return mostReviewedBorough; //Accessor Method to get Borough with most reviewed
     }
     
     public String getCheapestHost() {
-        return cheapHostName;
+        return cheapHostName;   //Accessor Method to get Host Name with cheapest price
     }
 
     public String getExpensiveHost() {
-        return expHostName;
+        return expHostName; //Accessor Method to get Host Name with most expensive price
     }
 
 }

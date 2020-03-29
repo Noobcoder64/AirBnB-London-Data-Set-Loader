@@ -1,47 +1,126 @@
 .root {
-    -fx-padding: 8.0px;
-    -fx-background-color: white;
+	-fx-padding: 8.0px;
+	-fx-background-color: white;
 }
 
 #price-range-box {
-    -fx-background-color: white;
+    -fx-alignment: top-right;
+    -fx-padding: 4px;
+    -fx-background-color: aliceblue;
     -fx-spacing: 10.0px;
 }
 
 #price-range-box > .label {
-    -fx-background-color: blue;
+    -fx-background-color:aliceblue;
+    
 }
 
 #price-range-box > .choice-box {
-    -fx-background-color: red;
+    -fx-background-color: ghostwhite;
+    -fx-font-style: italic;
+    -fx-border-radius: 7.0px;
+    -fx-border-color: #D0D0D0;
+}
+
+#price-range-box > .choice-box:hover {
+    -fx-background-color: snow;
+    -fx-font-style: italic;
+    -fx-border-radius: 7.0px;
+    -fx-border-color: gainsboro;
+}
+
+#welcome-pane {
+	-fx-padding: 40px;
+}
+
+#welcome-label {
+	-fx-font-size: 15px;
+	-fx-text-alignment: center;
+}
+
+#selected-range-box {
+	-fx-font-size: 15px;
+	-fx-padding: 10px;
+	-fx-spacing: 10.0px;
+	-fx-background-color: snow;
 }
 
 #navigation-box {
+    -fx-padding: 4.0px;
     -fx-background-color: white;
     -fx-border-top-style: #D0D0D0;
 }
 
 .navigation-button {
-    -fx-font-size: 13.0px;
+    -fx-font-size: 15.0px;
+    -fx-font-style: italic;
     -fx-background-color: snow;
-    -fx-border-radius: 4.0px;
-    -fx-border-color: #D0D0D0;
-    -fx-pref-width: 40.0px;
+    -fx-border-radius: 5.0px;
+    -fx-border-color:  #D0D0D0;
+    -fx-pref-width: 50.0px;
 }
 
 .navigation-button:hover {
-    -fx-font-size: 14.0px;
-    -fx-font-style: italic;
-    -fx-background-color: ghostwhite;
-    -fx-border-color: #D0D0D0;
-    -fx-pref-width: 42.0px;
+    -fx-background-color: ghostwhite; 
 }
 
-.boroug-pane {
+.map-pane {
+	 -fx-background-color: white;
+}
+
+.borough-pane {
+    -fx-background-color: white;
 }
 
 .borough-pane > .button {
-     -fx-background-color: orange;
+	 -fx-background-color: white;
+}
+
+.section-pane {
+    -fx-padding: 5 5 10 105;   
+    -fx-background-color: white;
+}
+
+/* BOROUGH PROPERTIES STAGE (TABLE WITH PROPERTIES) */
+
+#sort-box {
+	-fx-background-color: red;
+}
+
+#sort-box > .label {
+	-fx-background-color: white;
+}
+
+#table-box {
+	-fx-background-color: blue;
+	-fx-padding: 10px;
+}
+
+.header-pane {
+	-fx-background-color: orange;
+}
+
+.body-pane {
+	-fx-background-color: yellow;
+}
+
+.property-row-box {
+	-fx-background-color: green;
+}
+
+/* PROPERTIES DESCRIPTION STAGE */
+
+#property-description-grid-pane {
+	-fx-background-color: red;
+}
+
+.name-label {
+	-fx-background-color: yellow;
+	-fx-font-weight: bold;
+}
+
+.description-label {
+	-fx-background-color: orange;
 }
 
 #StatisticVBox > .label{

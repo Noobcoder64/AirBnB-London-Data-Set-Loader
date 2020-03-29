@@ -15,20 +15,21 @@ import javafx.scene.layout.RowConstraints;
  */
 public class MapPane extends GridPane {
 	
-	private Map<String,Borough> boroughs;	// Boroughs to be displayed in the map.
+	private Map<String,Borough> boroughs;
 	
 	private int upperQuartile;	// Prices above this value will have a red border.
 	private int lowerQuartile;	// Prices below this value will have a green border.
 	// Prices between the upper and lower quartile will have a yellow border.
 	
 	public MapPane(Map<String,Borough> boroughs, int upperQuartile, int lowerQuartile) {
+		getStyleClass().add("map-pane");
+		
 		this.boroughs = boroughs;
 		this.upperQuartile = upperQuartile;
 		this.lowerQuartile = lowerQuartile;
 		
 		setVgap(-20);
 		setHgap(2);
-		//setGridLinesVisible(true);
 		
 		for (int i = 0; i < 7 * 2; i++) {
 			ColumnConstraints columnConstraints = new ColumnConstraints(40);
@@ -84,7 +85,7 @@ public class MapPane extends GridPane {
 	}
 	
 	/**
-	 * Add a borough in the map
+	 * Adds a borough in the map
 	 * 
 	 * @param name Name of the borough.
 	 * @param displayName Name to be displayed on the button.
@@ -94,7 +95,6 @@ public class MapPane extends GridPane {
 	 */
 	private void addBorough(String name, String displayName, int offset, int column, int row) {
 		BoroughPane boroughPane = new BoroughPane(displayName, 70, 80);
-		boroughPane.getStyleClass().add("borough-pane");
 		
 		if (boroughs.containsKey(name)) {
 			Borough borough = boroughs.get(name);
@@ -104,7 +104,6 @@ public class MapPane extends GridPane {
 			int numberOfProperties = borough.getNumberOfProperties();
 			
 			String color;
-			
 			if (numberOfProperties > upperQuartile) {
 				color = "red";
 			} else if (numberOfProperties < lowerQuartile) {
@@ -112,6 +111,7 @@ public class MapPane extends GridPane {
 			} else {
 				color = "yellow";
 			}
+			
 			boroughPane.setColor(color);
 		}
 		
