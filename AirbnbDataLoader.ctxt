@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #BlueJ class context
 comment0.target=AirbnbDataLoader
 comment1.params=
@@ -16,3 +17,26 @@ comment5.target=java.util.List\ getProperties()
 comment6.params=
 comment6.target=java.util.Map\ getBoroughs()
 numComments=7
+=======
+#BlueJ class context
+comment0.target=AirbnbDataLoader
+comment0.text=\n\ Utility\ class\ to\ load\ the\ listings\ of\ properties\ for\ rental\ in\ Airbnb.\n\ \n\ @author\n\n
+comment1.params=
+comment1.target=AirbnbDataLoader()
+comment2.params=
+comment2.target=void\ load()
+comment2.text=\ \n\ Return\ an\ ArrayList\ containing\ the\ rows\ in\ the\ AirBnB\ London\ data\ set\ csv\ file.\n
+comment3.params=doubleString
+comment3.target=java.lang.Double\ convertDouble(java.lang.String)
+comment3.text=\n\ Converts\ a\ String\ into\ a\ Double.\n\ @param\ doubleString\ the\ string\ to\ be\ converted\ to\ Double\ type\n\ @return\ the\ Double\ value\ of\ the\ string,\ or\ -1.0\ if\ the\ string\ is\ \n\ either\ empty\ or\ just\ whitespace\n
+comment4.params=intString
+comment4.target=java.lang.Integer\ convertInt(java.lang.String)
+comment4.text=\n\ Converts\ a\ String\ into\ an\ Integer.\n\ @param\ intString\ the\ string\ to\ be\ converted\ to\ Integer\ type\n\ @return\ the\ Integer\ value\ of\ the\ string,\ or\ -1\ if\ the\ string\ is\ \n\ either\ empty\ or\ just\ whitespace\n
+comment5.params=
+comment5.target=java.util.List\ getProperties()
+comment5.text=\n\ Returns\ all\ properties\ for\ rental\ in\ Airbnb.\n\ @return\ properties\ for\ rental\ in\ Airbnb\n
+comment6.params=
+comment6.target=StatisticCalculator\ getPriceStatistics()
+comment6.text=\n\ Returns\ the\ statistics\ derived\ from\ the\ prices\ of\ all\ properties.\n\ @return\ the\ statistics\ derived\ from\ the\ prices\ of\ all\ properties\n
+numComments=7
+>>>>>>> branch 'k19014844' of https://github.kcl.ac.uk/k1921959/PPA-Assignment-4.git

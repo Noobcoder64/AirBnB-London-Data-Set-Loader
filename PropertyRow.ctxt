@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=PropertyRow
+comment1.params=property
+comment1.target=PropertyRow(AirbnbListing)
+comment2.params=text
+comment2.target=void\ addColumn(java.lang.String)
+comment3.params=event
+comment3.target=void\ showPropertyDescription(javafx.scene.input.MouseEvent)
+numComments=4

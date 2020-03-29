@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,6 +5,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,16 +22,23 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * 
+ * @author HP PAVILION
+ *
+ */
 public class View extends Application {
 
 	private Stage stage;
 	
 	private BorderPane root;
 	
+	private AirbnbDataLoader airbnbDataLoader;
+	
 	private Controller controller;
 
 	private List<Pane> panels;
-	
 	private int panelIndex;
 	
 	ChoiceBox<Integer> fromChoice;
@@ -45,6 +52,15 @@ public class View extends Application {
 	private Label fromPriceLabel;
 	private Label toPriceLabel;
 	
+	private Stage panel3;
+	
+	public View() {
+		airbnbDataLoader = new AirbnbDataLoader();
+        airbnbDataLoader.load("airbnb-london.csv");
+		
+		isSelected = new boolean[2];
+	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
@@ -52,15 +68,11 @@ public class View extends Application {
 		BorderPane root = new BorderPane();
 		this.root = root;
 		
-		controller = new Controller();
-		
-		isSelected = new boolean[2];
-		
 		HBox priceRangeBox = new HBox();
 		priceRangeBox.setId("price-range-box");
 		
-		int maxPrice = ((controller.getAllPriceStatistics().getMaxValue() + 99) / 100) * 100;
-		int minPrice = controller.getAllPriceStatistics().getMinValue() / 100 * 100;
+		int maxPrice = ((airbnbDataLoader.getPriceStatistics().getMaxValue() + 99) / 100) * 100;
+		int minPrice = airbnbDataLoader.getPriceStatistics().getMinValue() / 100 * 100;
 		
 		ObservableList<Integer> observableList = FXCollections.observableArrayList();
 		for (int i = minPrice; i <= maxPrice; i += 100) {
@@ -90,7 +102,6 @@ public class View extends Application {
 		panels = new ArrayList<>();
 		
 		panels.add(createPanel1());
-		panels.add(null);
 		panels.add(null);
 		
 		// Main content Pane.
@@ -125,7 +136,12 @@ public class View extends Application {
 		stage.show();
 	}
 
-	// Panel 1
+	/**
+	 * Creates panel 1 which contains a welcoming messaging that informs the
+	 * user on how to use the program.
+	 * Upon the selection of a starting and ending price, the values are displayed
+	 * to allow the user to confirm their choice.
+	 */
 	private Pane createPanel1() {
 		BorderPane pane = new BorderPane();
 		
@@ -161,7 +177,11 @@ public class View extends Application {
 		return pane;
 	}
 	
-	// Panel 2
+	/**
+	 * Creates panel 2 which contains a map of London with its boroughs.
+	 * Only boroughs within the selected range can be interacted with while the others are disabled.
+	 * For further information of the map visit the MapPane class.
+	 */
 	private Pane createPanel2() {
 		Pane pane = new Pane();
 
@@ -171,48 +191,120 @@ public class View extends Application {
 		return pane;
 	}
 
-	// Panel 3
-	private Pane createPanel3() {
-		Pane pane = new Pane();
-		
-		GridPane gridPane = new GridPane();
-		
-		// Put all components in this pane.
-		BorderPane sectionPane = new BorderPane();
-		
-		Button nextButton = new Button(">");
-		sectionPane.setRight(nextButton);
-		
-		Button backButton = new Button("<");
-		sectionPane.setLeft(backButton);
-	
-		VBox statisticsBox = new VBox();
-		Label statisticsLabel = new Label("Number of Properties");
-		Label numberLabel = new Label("20");
-		statisticsBox.getChildren().addAll(statisticsLabel, numberLabel);
-		sectionPane.setCenter(statisticsBox);
+	/**
+	 * Creates panel 3 which is a stage that contains several statistics related to the properties.
+	 * This panel automatically appears as panel 2 is visited.
+	 */
+    private Stage createPanel3() {
+    	Stage stage = new Stage();
+    	
+        Pane pane = new Pane();
 
-		gridPane.add(sectionPane, 0, 0);
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setId("gridPane");
+        
+        gridPane.setVgap(10);
+        gridPane.setHgap(10);
+
+        //Creating VBox's to display the statistics
+        VBox v1 = createVBox("Number of Properties\n\n"+ String.valueOf(controller.getAvailableProperties()));
+        VBox v2 = createVBox("Total average reviews\n\n"+ String.valueOf(controller.getAverageReviews()));
+        VBox v3 = createVBox("Total Number of Home/Apartments\n\n"+ String.valueOf(controller.getHomeApartments()));
+        VBox v4 = createVBox("Most expensive borough\n\n"+ String.valueOf(controller.getMostExpensiveBorough()));
+        VBox v5 = createVBox("Cheapest borough\n\n"+ String.valueOf(controller.getCheapestBorough()));
+        VBox v6 = createVBox("Most expensive property description\n\n"+ String.valueOf(controller.getMostExpensiveDescription() + "\n\n Host Name: " + controller.getExpensiveHost()));
+        VBox v7 = createVBox("Cheapest property description\n\n"+ String.valueOf(controller.getCheapestBoroughDescription()) + "\n\n Host Name: " + controller.getCheapestHost());
+        VBox v8 = createVBox("Most reviewed borough\n\n"+ String.valueOf(controller.getMostReviewedBorough()));
+        
+        //Creating BorderPane and adding the VBox as parameter to change in button action
+        BorderPane b1 = createBorderPane(v1, v5);
+        BorderPane b2 = createBorderPane(v3, v6);
+        BorderPane b3 = createBorderPane(v2, v7);
+        BorderPane b4 = createBorderPane(v4, v8);
+        
+        //gridPane.setAlignment(Pos.CENTER);
+        //Laying the borderpane accordingly
+        gridPane.add(b1, 0, 0);
+        gridPane.add(b2, 0, 1);
+        gridPane.add(b3, 1, 0);
+        gridPane.add(b4, 1, 1);
+
+        pane.getChildren().add(gridPane);
+        pane.setMinSize(900, 400);
+        
+        Scene scene = new Scene(pane);
+		scene.getStylesheets().add("style.css");
 		
-		pane.getChildren().add(gridPane);
-		return pane;
-	}
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.setTitle("Statistics");
+
+        return stage;
+    }
+
+    public VBox createVBox(String Context){
+        VBox centerView = new VBox();
+        Label statistics = new Label(Context);
+        statistics.setPrefSize(400, 200);
+        centerView.getChildren().add(statistics);
+        centerView.setId("StatisticVBox");
+        return centerView;
+    }
+
+    public BorderPane createBorderPane(VBox v1, VBox v2){
+        BorderPane layout = new BorderPane();
+        layout.setCenter(v1);
+        Button next = new Button(">");
+        next.setMinSize(50, 200);
+        layout.setRight(next);
+        next.setOnAction(e -> layout.setCenter(v2));
+        Button back = new Button("<");
+        back.setMinSize(50, 200);
+        layout.setLeft(back);
+        back.setOnAction(e -> layout.setCenter(v1));
+        layout.setId("StatisticBorderPane");
+        return layout;
+    }
 	
+    /**
+     * Allows the user to visit the next panel.
+     */
 	private void nextPanel(ActionEvent event) {
 		panelIndex = (panelIndex + 1 ) % panels.size();
 		changePanel();
 	}
 	
+	/**
+     * Allows the user to visit the previous panel.
+     */
 	private void previousPanel(ActionEvent event) {
 		panelIndex = (panels.size() + panelIndex - 1) % panels.size();
 		changePanel();
 	}
 	
+	/**
+	 * Changes the current panel with another one at the center of the program.
+	 */
 	private void changePanel() {
 		root.setCenter(panels.get(panelIndex));
+		
+		// Displays panel 3 whenever panel 2 is viewed
+		if (panelIndex == 1) {
+			panel3.show();
+		} else {
+			panel3.hide();
+		}
+		
 		stage.sizeToScene();
 	}
 	
+	/**
+	 * Validates the selected starting and ending price when both of them have been selected.
+	 * A starting price bigger than or equale to the ending price is considered invalid and will display
+	 * an error dialog.
+	 * If the prices are valid, the forward and back button are enabled, allowing the user to progress.
+	 */
 	private void validateInput() {
 		if (!isSelected[0] || !isSelected[1]) return;
 		
@@ -227,15 +319,24 @@ public class View extends Application {
 		}
 	}
 	
+	/**
+	 * Prepares panel 2 and panel 3.
+	 * Once a valid pair of prices are selected statitics are calculated
+	 * and the map is built.
+	 */
 	private void processSelectedPriceRange() {
+		controller = new Controller(airbnbDataLoader.getProperties());
 		controller.setStartPrice(fromChoice.getValue());
 		controller.setEndPrice(toChoice.getValue());
 		controller.processRange();
 		panels.set(1, createPanel2());
-		panels.set(2, createPanel3());
+		panel3 = createPanel3();
 		changePanel();
 	}
 	
+	/**
+	 * Pops up a warning dialog.
+	 */
 	private void showInvalidRangeAlert() {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Invalid");
