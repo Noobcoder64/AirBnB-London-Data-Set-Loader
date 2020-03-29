@@ -23,7 +23,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
+ * London Property Marketplace
  * 
+ * Main Stage containing all GUI functionalities.
+ * The user can navigate through different panels to discover properties and their statistics,
+ * however a price range must be selected initially.
  * 
  * @author
  */
@@ -270,7 +274,7 @@ public class View extends Application {
         Label statistics = new Label(Context);
         statistics.setPrefSize(315, 200);
         centerView.getChildren().add(statistics);
-        centerView.setId("StatisticVBox");
+        centerView.setId("statistic-v-box");
         return centerView;
     }
 
@@ -293,7 +297,7 @@ public class View extends Application {
         layout.setLeft(back);
         back.setOnAction(e -> layout.setCenter(v1));    //Changing VBox to previous VBox
 
-        layout.setId("StatisticBorderPane");
+        layout.setId("statistic-border-pane");
         return layout;
     }
 	

@@ -152,7 +152,7 @@
     -fx-padding: 3 0 1 1;
 }
 
-#StatisticVBox > .label{
+#statistic-v-box > .label{
     -fx-text-alignment: center;
     -fx-font-size: 11pt;
     -fx-alignment: center;
@@ -160,7 +160,7 @@
     -fx-border-color: black;
 }
 
-#StatisticBorderPane > .button:hover {
+#statistic-border-pane > .button:hover {
 	-fx-background-color: #0000ff;
 	-fx-border-color: #000080;
 	-fx-border-width: 2;
