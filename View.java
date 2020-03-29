@@ -218,11 +218,13 @@ public class View extends Application {
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10, 10, 10, 10));
         gridPane.setId("gridPane");
-        
+
+        //Setting vertical and horizontal spacing between each cell.
         gridPane.setVgap(10);
         gridPane.setHgap(10);
 
         //Creating VBox's to display the statistics
+        //The parameters accept one String, thus data is being concatinated
         VBox v1 = createVBox("Number of Properties\n\n"+ String.valueOf(controller.getAvailableProperties()));
         VBox v2 = createVBox("Total average reviews\n\n"+ String.valueOf(controller.getAverageReviews()));
         VBox v3 = createVBox("Total Number of Home/Apartments\n\n"+ String.valueOf(controller.getHomeApartments()));
@@ -233,20 +235,20 @@ public class View extends Application {
         VBox v8 = createVBox("Most reviewed borough\n\n"+ String.valueOf(controller.getMostReviewedBorough()));
         
         //Creating BorderPane and adding the VBox as parameter to change in button action
-        BorderPane b1 = createBorderPane(v1, v5);
-        BorderPane b2 = createBorderPane(v3, v6);
-        BorderPane b3 = createBorderPane(v2, v7);
-        BorderPane b4 = createBorderPane(v4, v8);
-        
-        //gridPane.setAlignment(Pos.CENTER);
+        BorderPane b1 = createBorderPane(v1, v3);
+        BorderPane b2 = createBorderPane(v2, v8);
+        BorderPane b3 = createBorderPane(v4, v5);
+        BorderPane b4 = createBorderPane(v6, v7);
+
         //Laying the borderpane accordingly
+        //4 section of BorderPane with 2 statistics each
         gridPane.add(b1, 0, 0);
         gridPane.add(b2, 0, 1);
         gridPane.add(b3, 1, 0);
         gridPane.add(b4, 1, 1);
 
         pane.getChildren().add(gridPane);
-        pane.setMinSize(900, 400);
+        pane.setMinSize(800, 400);
         
         Scene scene = new Scene(pane);
 		scene.getStylesheets().add("style.css");
@@ -258,26 +260,39 @@ public class View extends Application {
         return stage;
     }
 
+    /**
+     * Creating VBox and help with less code duplication
+     * @param a concatinated String of the statistics title and the actual value
+     * @return VBox which is then used in panel3 as statistics view
+     */
     public VBox createVBox(String Context){
         VBox centerView = new VBox();
         Label statistics = new Label(Context);
-        statistics.setPrefSize(400, 200);
+        statistics.setPrefSize(315, 200);
         centerView.getChildren().add(statistics);
         centerView.setId("StatisticVBox");
         return centerView;
     }
 
+    /**
+     * Creating BorderPane method for panel3 to reduce duplication
+     * @param VBoxs 1st VBox for the current and 2nd VBox for the previous statistics
+     * @return BorderPane which is then used in panel3 as statistics view
+     */
     public BorderPane createBorderPane(VBox v1, VBox v2){
         BorderPane layout = new BorderPane();
         layout.setCenter(v1);
-        Button next = new Button(">");
+        
+        Button next = new Button(">");  //Next button
+        next.setDisable(false);
         next.setMinSize(50, 200);
         layout.setRight(next);
-        next.setOnAction(e -> layout.setCenter(v2));
-        Button back = new Button("<");
+        next.setOnAction(e -> layout.setCenter(v2));    //Changing VBox to next VBox
+        Button back = new Button("<");  //Back button
         back.setMinSize(50, 200);
         layout.setLeft(back);
-        back.setOnAction(e -> layout.setCenter(v1));
+        back.setOnAction(e -> layout.setCenter(v1));    //Changing VBox to previous VBox
+
         layout.setId("StatisticBorderPane");
         return layout;
     }
