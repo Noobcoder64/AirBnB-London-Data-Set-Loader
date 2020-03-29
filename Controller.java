@@ -30,6 +30,7 @@ public class Controller {
 
     private int averageReviews;
     private int totalNumberOfHomeOrApt;
+    
     private String mostExpensiveBorough;
     private String cheapestBorough;
     private String mostReviewedBorough;
@@ -39,6 +40,10 @@ public class Controller {
     private String cheapestHostName;
     
     private double reviewedNumber;
+    private double latitudeOfCheapProperty;
+    private double longitudeOfCheapProperty;
+    private double latitudeOfExpensiveProperty;
+    private double longitudeOfExpensiveProperty;
 
     public Controller(List<AirbnbListing> properties) {
     	allProperties = properties;
@@ -87,12 +92,16 @@ public class Controller {
                 cheapestBorough = property.getNeighbourhood();
                 cheapestPropertyDescription = property.getName();
                 cheapestHostName = property.getHost_name();
+                latitudeOfCheapProperty = property.getLatitude();
+                longitudeOfCheapProperty = property.getLongitude();
             }
             if(sortedlist.get(sortedlist.size() - 1) == (property.getPrice() * property.getMinimumNights()))
             {
                 mostExpensiveBorough = property.getNeighbourhood();
                 mostExpensiveName = property.getName();
                 mostExpensiveHostName = property.getHost_name();
+                latitudeOfExpensiveProperty = property.getLatitude();;
+                longitudeOfExpensiveProperty = property.getLongitude();;
             }
         }
 
@@ -204,6 +213,34 @@ public class Controller {
      */
     public String getExpensiveHost() {
         return mostExpensiveHostName;
+    }
+    
+    /**
+     * Accessor Method to get latitude of cheapest property
+     */
+    public double getLatitudeOfCheapProperty() {
+        return latitudeOfCheapProperty;
+    }
+    
+    /**
+     * Accessor Method to get longitude of cheapest property
+     */
+    public double getLongitudeOfCheapProperty() {
+        return longitudeOfCheapProperty;
+    }
+    
+    /**
+     * Accessor Method to get latitude of expensive property
+     */
+    public double getLatitudeOfExpensiveProperty() {
+        return latitudeOfExpensiveProperty;
+    }
+    
+    /**
+     * Accessor Method to get longitude of expensive property
+     */
+    public double getLongitudeOfExpensiveProperty() {
+        return longitudeOfExpensiveProperty;
     }
 
 }

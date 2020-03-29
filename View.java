@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -284,6 +286,50 @@ public class View extends Application {
 		stage.setTitle("Statistics");
 
         return stage;
+    }
+
+    private Pane createPanel4() {
+        Pane pane = new Pane();
+        BorderPane borderPane = new BorderPane();
+
+        Label label = new Label("Enter a location or address:");
+        TextField text = new TextField();
+
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(label, text);
+
+        Label label1 = new Label("Click here to get direction to cheapest property:");
+        Button btn1 = new Button("Check");
+        btn1.setOnAction(e -> viewOnMapsButton(text.getText(), controller.getLatitudeOfCheapProperty(), controller.getLongitudeOfCheapProperty()));
+
+        Label label2 = new Label("Click here to get direction to most expensive property:");
+        Button btn2 = new Button("Check");
+        btn2.setOnAction(e -> viewOnMapsButton(text.getText(), controller.getLatitudeOfExpensiveProperty(), controller.getLongitudeOfExpensiveProperty()));
+
+        VBox buttonVbox = new VBox();
+        vbox.getChildren().addAll(label1, btn1, label2, btn2);
+
+        borderPane.setTop(vbox);
+        borderPane.setLeft(buttonVbox);
+
+        pane.getChildren().addAll(borderPane);
+        return pane;
+    }
+
+    private void viewOnMapsButton(String direction, double latitude, double longitude){
+        try{
+            direction = direction.replace(" ",",");
+            viewMap(direction, latitude, longitude);
+        }
+        catch(Exception e){
+            System.out.println("URL INVALID");
+        }
+    }
+
+    private void viewMap(String direction, double latitude, double longitude) throws Exception
+    {
+        URI uri = new URI("https://www.google.com/maps/dir/" + direction + "/" + latitude + "," + longitude);
+        java.awt.Desktop.getDesktop().browse(uri); 
     }
 
     /**
