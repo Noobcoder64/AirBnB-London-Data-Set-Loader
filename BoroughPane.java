@@ -11,8 +11,10 @@ import javafx.util.Duration;
  * Clicking the button pops up a new window containing the properties available in the borough.
  * Hovering over the button flips it and the back displays the number of properties in the borough.
  * 
- * @author
- *
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */
 public class BoroughPane extends StackPane {
 	

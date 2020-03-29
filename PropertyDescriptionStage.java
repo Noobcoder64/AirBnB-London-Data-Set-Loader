@@ -7,8 +7,10 @@ import javafx.stage.Stage;
 /**
  * Stage that displays the descriptions of a property.
  * 
- * @author
- *
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */
 public class PropertyDescriptionStage extends Stage {
 	

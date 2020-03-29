@@ -2,6 +2,11 @@
  * Represents one listing of a property for rental on Airbnb.
  * This is essentially one row in the data table. Each column
  * has a corresponding field.
+ * 
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */ 
 
 public class AirbnbListing {

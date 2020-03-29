@@ -13,7 +13,10 @@ import javafx.stage.Stage;
  * Also represents a property.
  * Clicking the row pops up a new window containing the description of the property.
  * 
- * @author
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */
 public class PropertyRowBox extends NormalRowBox {
 

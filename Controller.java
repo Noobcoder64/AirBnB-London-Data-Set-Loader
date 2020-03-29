@@ -5,6 +5,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.Collections;
 
+/**
+ * A collection of properties that is within a give price range.
+ * Takes in a list of properties and filters according to their price.
+ * Also derives many statistical values from those properties.
+ * 
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
+ */
 public class Controller {
 
     private List<AirbnbListing> allProperties;

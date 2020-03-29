@@ -20,6 +20,11 @@ import javafx.stage.Stage;
  * Pane that displays the properties available for rental in a borough.
  * A dropdown menu enables the sorting of the properties by host name, price, number of reviews and minimum number of nights.
  * Clicking a property pops up a new window containing the description of that property.
+ * 
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */
 public class BoroughPropertiesStage extends Stage {
 	

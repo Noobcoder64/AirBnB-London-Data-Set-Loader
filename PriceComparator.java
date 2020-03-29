@@ -2,6 +2,11 @@ import java.util.Comparator;
 
 /**
  * Comparator to sort properties by their price.
+ * 
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */
 public class PriceComparator implements Comparator<AirbnbListing> {
 

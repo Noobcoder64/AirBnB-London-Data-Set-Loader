@@ -5,7 +5,10 @@ import javafx.scene.layout.Priority;
 /**
  * Represents a row in a table.
  * 
- * @author
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */
 public class NormalRowBox extends HBox {
 	

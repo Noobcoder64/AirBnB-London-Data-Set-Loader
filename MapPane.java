@@ -12,6 +12,11 @@ import javafx.scene.layout.RowConstraints;
  * The border of each borough's representation changes in colour depending on the number of properties availabe for rental in it.
  * Statistics such as upper and lower quartile are used to determine the range in which a borough is cosidered
  * to have more or less properties than others.
+ * 
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */
 public class MapPane extends GridPane {
 	

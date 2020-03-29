@@ -29,7 +29,10 @@ import javafx.stage.Stage;
  * The user can navigate through different panels to discover properties and their statistics,
  * however a price range must be selected initially.
  * 
- * @author
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */
 public class View extends Application {
 

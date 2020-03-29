@@ -4,6 +4,11 @@ import java.util.List;
 /**
  * Represents one borough on Airbnb.
  * A borough has properties for rental
+ * 
+ * @author Fahim Ahmed K1921959,
+ * Issa Kabir K19014844,
+ * Jehan Bhuyan K19017993,
+ * Ork Hossain Muntaqin  K19016476
  */ 
 public class Borough {
 
